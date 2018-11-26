@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import Header from './containers/Header/Header';
+import Signin from './containers/Signin/Signin';
+
+
 
 /**
  * @class App
@@ -22,7 +26,7 @@ class App extends Component {
               <p></p>
             </div>
             <Switch>
-              <Route path="/dashboard" exact component={dashboard} />
+              <Route path="/signin" exact component={Signin} />
               <Redirect to="/signin" />
             </Switch>
           </div>

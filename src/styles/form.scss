@@ -1,0 +1,163 @@
+$primary-color: #052F60;
+$secondary-color: #DFAC2C;
+$light-white-color: #d0d0d0;
+$white-color: #fafafa;
+$smartphone: "(min-width: 0px) and (max-width: 599px)";
+//$smartphone: "(min-width: 0px) and (max-width: 467px)";
+$tablet: "(min-width: 600px) and (max-width: 900px)";
+
+form {
+    padding: 20px;
+	.form_error_text {
+		padding: 7px 8px 7px 8px;
+		background-color: red;
+		color: white;
+		width: 50%;
+		margin: auto;
+		border-radius: 5px;
+		display: none;
+		margin-bottom: 10px;
+	}
+    .field {
+        margin: 0px auto 15px auto;
+		width: 90%;
+        label {
+            margin: 3px 0px 3px 0px;
+            padding: 6px 6px 6px 0px;
+            font-size: 1em;
+            float: left;
+        }
+        textarea.control-form {
+            height: 12em;
+            resize: vertical;
+            line-height: 24px;
+            padding-top: 30px;
+        }
+        .control-form {
+            border: none;
+            float: left;
+            height: 2.7em;
+            width: 100%;
+            border-radius: 3px;
+            padding: 0px 6px 0px 6px;
+            border-color: inherit;
+            font-size: 0.8em;
+        }
+        .submit-button {
+            float: left;
+            height: 2.7em;
+            width: 75%;
+            padding: 0px 0px 0px 0px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        a {
+            color: white;
+            margin-right: 30px;
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+	.button-white {
+		// background-color: white;
+		background-color: $primary-color;
+		// color: $primary-color;
+		color: white;
+		&:hover {
+			background-color: #0d529d;
+			color: white;
+			transition: 1s;
+		}
+	}
+    .button-primary {
+        background-color: $primary-color !important;
+        color: white;
+        border: none;
+        &:hover {
+			background-color: #0d529d;
+            transition: 1s;
+        }
+    }
+	.button-cancel {
+        background-color: #a1020c !important;
+        color: white;
+        border: none;
+        &:hover {
+            background-color: #e00a1e !important;
+            transition: 1s;
+        }
+    }
+    fieldset {
+        margin-bottom: 20px;
+    }
+}
+
+.blue-forms {
+    background:  $primary-color;
+    label {
+        color: white;
+    }
+	.field {
+		// border-bottom: 1px solid grey;
+	}
+    .control-form {
+        background: white;
+        &:focus {
+            background: $light-white-color;
+        }
+    }
+}
+.white-forms {
+    background:  #E1E1E1;
+    border-radius: 2px;
+    .field {
+        // background: white;
+        // border-bottom: 1px solid grey;
+        label {
+            // color: $primary-color;
+            color: white;
+            font-weight: bold;
+        }
+        .control-form {
+            // background: $primary-color;
+            background: white;
+            &:focus {
+                background: $light-white-color;
+                color: black;
+            }
+        }
+        button {
+            background: $white-color;
+            color: $primary-color;
+            &:hover {
+                background: $light-white-color;
+            }
+        }
+    }
+    .field:last-of-type {
+        background: none;
+        border: none;
+    }
+}
+@media #{$smartphone} {
+    form {
+        .field {
+            label, .control-form, .submit-button {
+                float: none;
+            }
+        }
+    }
+}
+@media #{$tablet} {
+    form {
+        .field {
+            label, .control-form, .submit-button {
+                float: none;
+            }
+        }
+    }
+}
