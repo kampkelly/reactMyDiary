@@ -1,16 +1,98 @@
 {
-    "name": "reactMyDiary",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "test": "jest \"-u\"",
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      
+  "name": "reactMyDiary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "watch": {
+    "dev-eslint": "src/**/*.js"
+  },
+  "scripts": {
+    "dev-eslint": "npm run eslint && webpack-dev-server --mode development --hot",
+    "dev": "webpack-dev-server --mode development --hot",
+    "start": "node server.js",
+    "build": "webpack --mode production",
+    "eslint-fix": "eslint . --fix --ignore-path .gitignore",
+    "eslint": "eslint . --ignore-path .gitignore",
+    "watch": "npm-watch",
+    "test": "jest \"-u\"",
+    "test-watch": "jest --watchAll"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./SetupTests.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-static-stubs/$1",
+      "\\.(css|less|scss|png)$": "identity-obj-proxy"
     }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-preset-react": "^6.24.1",
+    "dotenv": "^6.1.0",
+    "dotenv-webpack": "^1.5.7",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "express": "^4.16.4",
+    "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "medium-editor": "^5.23.3",
+    "moment": "^2.22.2",
+    "npm-watch": "^0.4.0",
+    "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
+    "react": "^16.6.0",
+    "react-avatar": "^3.4.6",
+    "react-dom": "^16.6.0",
+    "react-html-parser": "^2.0.2",
+    "react-idle-timer": "^4.0.9",
+    "react-materialize": "^2.4.8",
+    "react-medium-editor": "^1.8.1",
+    "react-redux": "^5.1.0",
+    "react-router-dom": "^4.3.1",
+    "react-star-ratings": "^2.3.0",
+    "react-tag-input": "^6.0.2",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.12.1",
+    "url-loader": "^1.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.1",
+    "dotenv-webpack": "^1.5.7",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "eslint-plugin-react": "^7.11.1",
+    "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.6.0",
+    "jest-static-stubs": "0.0.1",
+    "node-sass": "^4.9.4",
+    "redux-mock-store": "^1.5.3",
+    "sass-loader": "^7.1.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   }
-  
+}
