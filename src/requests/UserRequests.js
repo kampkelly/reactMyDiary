@@ -1,0 +1,26 @@
+import axios from 'axios';
+import { createBrowserHistory } from 'history';
+
+import { asyncActions } from '../util/AsyncUtil';
+import { SIGNIN } from '../actionTypes/UserConstants';
+import { userConstant } from '../constants/Constants';
+
+const history = createBrowserHistory({ forceRefresh: true });
+
+export const SigninUser = (email, password) => (dispatch) => {
+  axios.post(userConstant.SIGNIN_URL, { email, password })
+    .then((response) => {
+      dispatch(asyncActions(SIGNIN).success(response.data));
+      document.querySelector('.form_error_text').style.display = 'none';
+      if (response.data.status === 'Success') {
+        // localStorage.setItem('diary_token', response.data.token);
+        // window.location = `dashboard.html?notice=${response.data.message}`;
+        history.push('/signin');
+      } else {
+        document.querySelector('.form_error_text').style.display = 'block';
+        document.querySelector('.form_error_text small').textContent = response.data.message;
+      }
+    })
+    .catch(error => dispatch(asyncActions(SIGNIN)
+      .failure(true, error.response.data.message)));
+};
