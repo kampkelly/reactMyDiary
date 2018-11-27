@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './Signup.scss';
 import '../../styles/form.scss';
@@ -135,7 +136,7 @@ class Signup extends Component {
                 <div className="field grid-container">
                   <div className="col-2-6 col-6-6-md col-6-6-xs"></div>
                   <div className="col-4-6 col-6-6-md col-6-6-xs">
-                    <span className="white-text">Already have an account?</span> <a href="signin.html" className="underline">Signin</a>
+                    <span className="white-text">Already have an account?</span> <Link key="1" to="/signin" className="underline">Signin</Link>
                   </div>
                 </div>
               </form>
