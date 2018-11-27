@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
+import setAuthToken from '../util/AuthTokenUtil';
 import { asyncActions } from '../util/AsyncUtil';
 import { SIGNIN, SIGNUP } from '../actionTypes/UserConstants';
 import { userConstant } from '../constants/Constants';
@@ -13,8 +14,8 @@ export const SigninUser = (email, password) => (dispatch) => {
       dispatch(asyncActions(SIGNIN).success(response.data));
       document.querySelector('.form_error_text').style.display = 'none';
       if (response.data.status === 'Success') {
-        // localStorage.setItem('diary_token', response.data.token);
-        // window.location = `dashboard.html?notice=${response.data.message}`;
+        localStorage.setItem('diary_token', response.data.token);
+        setAuthToken(response.data.token);
         history.push('/signin');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';
@@ -31,8 +32,8 @@ export const SignupUser = (email, password, confirmPassword, dateOfBirth, fullNa
       dispatch(asyncActions(SIGNUP).success(response.data));
       document.querySelector('.form_error_text').style.display = 'none';
       if (response.data.status === 'Success') {
-        // localStorage.setItem('diary_token', response.data.token);
-        // window.location = `dashboard.html?notice=${response.data.message}`;
+        localStorage.setItem('diary_token', response.data.token);
+        setAuthToken(response.data.token);
         history.push('/signin');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';

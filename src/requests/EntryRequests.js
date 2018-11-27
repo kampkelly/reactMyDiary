@@ -1,0 +1,27 @@
+import axios from 'axios';
+import { createBrowserHistory } from 'history';
+
+import { asyncActions } from '../util/AsyncUtil';
+import { NEW_ENTRY } from '../actionTypes/EntryConstants';
+import { entryConstant } from '../constants/Constants';
+
+const history = createBrowserHistory({ forceRefresh: true });
+
+export const AddEntry = (title, description) => (dispatch) => {
+  axios.post(`${entryConstant.ENTRIES_URL}`, { title, description })
+    .then((response) => {
+      dispatch(asyncActions(NEW_ENTRY).loading(false));
+      dispatch(asyncActions(NEW_ENTRY).success(true));
+      if (response.data.status === 'Success') {
+        document.getElementById('loading').style.display = 'none';
+        history.push('/entry/new');
+      } else {
+        document.getElementById('loading').style.display = 'none';
+        document.querySelector('.form_error_text').style.display = 'block';
+        document.querySelector('.form_error_text small').textContent = response.data.message;
+      }
+      dispatch(asyncActions(NEW_ENTRY).loading(true));
+    })
+    .catch(error => dispatch(asyncActions(NEW_ENTRY)
+      .failure(true, error.response.data.message)));
+};

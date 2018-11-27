@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+
+import PrivateRoute from './PrivateRoute';
 import Header from './containers/Header/Header';
 import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
+import NewEntry from './containers/Entry/NewEntry';
 
 
 
@@ -29,6 +32,7 @@ class App extends Component {
             <Switch>
               <Route path="/signup" exact component={Signup} />
               <Route path="/signin" exact component={Signin} />
+              <PrivateRoute path="/entry/new" component={NewEntry} />
               <Redirect to="/signin" />
             </Switch>
           </div>
