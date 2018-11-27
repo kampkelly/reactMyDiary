@@ -7,6 +7,7 @@ import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
 import NewEntry from './containers/Entry/NewEntry';
 import ViewEntry from './containers/Entry/ViewEntry';
+import UpdateEntry from './containers/Entry/UpdateEntry';
 
 
 
@@ -35,6 +36,7 @@ class App extends Component {
               <Route path="/signin" exact component={Signin} />
               <PrivateRoute path="/entry/new" component={NewEntry} />
               <PrivateRoute exact path="/entries/:id" component={ViewEntry} />
+              <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
               <Redirect to="/signin" />
             </Switch>
           </div>
