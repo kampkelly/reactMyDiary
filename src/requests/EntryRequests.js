@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
 import { asyncActions } from '../util/AsyncUtil';
-import { NEW_ENTRY } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY } from '../actionTypes/EntryConstants';
 import { entryConstant } from '../constants/Constants';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -23,5 +23,19 @@ export const AddEntry = (title, description) => (dispatch) => {
       dispatch(asyncActions(NEW_ENTRY).loading(true));
     })
     .catch(error => dispatch(asyncActions(NEW_ENTRY)
+      .failure(true, error.response.data.message)));
+};
+
+export const ShowEntry = id => (dispatch) => {
+  axios.get(`${entryConstant.ENTRIES_URL}/${id}`)
+    .then((response) => {
+      dispatch(asyncActions(SHOW_ENTRY).loading(false));
+      document.getElementById('loading').style.display = 'none';
+      if (response.data.status === 'Success') {
+        dispatch(asyncActions(SHOW_ENTRY).success(response.data.entry));
+      }
+      dispatch(asyncActions(SHOW_ENTRY).loading(true));
+    })
+    .catch(error => dispatch(asyncActions(SHOW_ENTRY)
       .failure(true, error.response.data.message)));
 };
