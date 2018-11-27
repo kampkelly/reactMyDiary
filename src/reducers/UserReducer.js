@@ -1,8 +1,9 @@
-import { SIGNIN, SIGNUP } from '../actionTypes/UserConstants';
+import { SIGNIN, SIGNUP, SIGNOUT } from '../actionTypes/UserConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
 const initialState = {
+  isAuth: false,
   loading: false,
   success: false,
   failure: false
@@ -18,7 +19,7 @@ const userReducer = (state = initialState, action = {}) => {
     case asyncActionName(SIGNIN).success:
       return {
         ...state,
-        success: action.payload,
+        success: action.payload, isAuth: true
       };
     case asyncActionName(SIGNIN).failure:
       document.querySelector('.form_error_text').style.display = 'block';
@@ -42,6 +43,8 @@ const userReducer = (state = initialState, action = {}) => {
       return {
         ...state,
       };
+    case asyncActionName(SIGNOUT).success:
+      return initialState;
     default:
       return state;
   }

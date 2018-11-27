@@ -1,6 +1,14 @@
+
 import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import './Header.scss';
+import { SIGNOUT } from '../../actionTypes/UserConstants';
+import { asyncActions } from '../../util/AsyncUtil';
+
+const history = createBrowserHistory({ forceRefresh: true });
 
 /**
  * @class Header
@@ -8,35 +16,44 @@ import './Header.scss';
  */
 class Header extends Component {
   /**
-   * @description - This method renders the jsx for this component
-   * @returns {jsx} - jsx
+   *Creates an instance of Header.
    * @memberof Header
    */
+  constructor() {
+    super();
+    this.signOut = this.signOut.bind(this);
+  }
 
   componentDidMount() {
     this.runAuthentication();
+  }
+
+  signOut() {
+    this.props.signOut();
+    localStorage.removeItem('token');
+    history.push('/');
   }
 
   runAuthentication() {
     if (localStorage.getItem('diary_token')) {
       // authenticated
       document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('a[href="signup.html"]')[0].parentNode.style.display = 'none';
-        document.querySelectorAll('a[href="signup.html"]')[1].parentNode.style.display = 'none';
-        document.querySelectorAll('a[href="signin.html"]')[0].parentNode.style.display = 'none';
-        document.querySelectorAll('a[href="signin.html"]')[1].parentNode.style.display = 'none';
+      document.querySelectorAll('a[href="signup.html"]')[0].parentNode.style.display = 'none';
+      document.querySelectorAll('a[href="signup.html"]')[1].parentNode.style.display = 'none';
+      document.querySelectorAll('a[href="signin.html"]')[0].parentNode.style.display = 'none';
+      document.querySelectorAll('a[href="signin.html"]')[1].parentNode.style.display = 'none';
       });
     } else {
       // eslint-disable-next-line
       if (location.href.includes('/signup.html') || location.href.includes('/signin.html') || location.href.includes('/forgot_password.html') || location.href.includes('/about.html')) {
         document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('a[href="#logout"]').style.display = 'none';
-          document.querySelectorAll('a[href="dashboard.html"]')[1].parentNode.style.display = 'none';
-          document.querySelectorAll('a[href="dashboard.html"]')[3].parentNode.style.display = 'none';
-          document.querySelectorAll('a[href="profile.html"]')[0].parentNode.style.display = 'none';
-          document.querySelectorAll('a[href="profile.html"]')[1].parentNode.style.display = 'none';
-          document.querySelectorAll('a[href="#logout"]')[0].parentNode.style.display = 'none';
-          document.querySelectorAll('a[href="#logout"]')[1].parentNode.style.display = 'none';
+        document.querySelector('a[href="#logout"]').style.display = 'none';
+        document.querySelectorAll('a[href="dashboard.html"]')[1].parentNode.style.display = 'none';
+        document.querySelectorAll('a[href="dashboard.html"]')[3].parentNode.style.display = 'none';
+        document.querySelectorAll('a[href="profile.html"]')[0].parentNode.style.display = 'none';
+        document.querySelectorAll('a[href="profile.html"]')[1].parentNode.style.display = 'none';
+        document.querySelectorAll('a[href="#logout"]')[0].parentNode.style.display = 'none';
+        document.querySelectorAll('a[href="#logout"]')[1].parentNode.style.display = 'none';
         });
       } else {
         // window.location = 'signin.html?notice=You are not logged in!&warning=red';
@@ -44,6 +61,11 @@ class Header extends Component {
     }
   }
 
+  /**
+   * @description - This method renders the jsx for this component
+   * @returns {jsx} - jsx
+   * @memberof Header
+   */
   render() {
     return (
       <div>
@@ -60,7 +82,7 @@ class Header extends Component {
                             <li className="list-inline active"><a href="signin.html">Signin</a></li>
                             <li className="list-inline"><a href="profile.html">My Profile</a></li>
                             <li className="list-inline"><a href="about.html">About</a></li>
-                            <li className="list-inline"><a href="#logout">Logout</a></li>
+                            <li className="list-inline"><a href="#logout" onClick={this.signOut}>Logout</a></li>
                         </ul>
                     </nav>
                     <nav className="mobile">
@@ -90,4 +112,13 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  signOut: PropTypes.func
+};
+
+const mapStateToProps = state => ({});
+
+
+export default connect(mapStateToProps, {
+  signOut: asyncActions(SIGNOUT).success,
+})(Header);
