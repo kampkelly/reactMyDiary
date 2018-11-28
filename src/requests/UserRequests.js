@@ -3,7 +3,7 @@ import { createBrowserHistory } from 'history';
 
 import setAuthToken from '../util/AuthTokenUtil';
 import { asyncActions } from '../util/AsyncUtil';
-import { SIGNIN, SIGNUP, PROFILE, NOTIFICATION } from '../actionTypes/UserConstants';
+import { SIGNIN, SIGNUP, PROFILE, NOTIFICATION, UPDATE_PROFILE} from '../actionTypes/UserConstants';
 import { userConstant } from '../constants/Constants';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -52,6 +52,22 @@ export const ShowProfile = () => (dispatch) => {
       }
     })
     .catch(error => dispatch(asyncActions(PROFILE)
+      .failure(true, error.response.data.message)));
+};
+
+export const UpdateProfile = (email, fullName, dateOfBirth) => (dispatch) => {
+  axios.put(userConstant.PROFILE_URL, { email, fullName, dateOfBirth })
+    .then((response) => {
+      if (response.data.status === 'Success') {
+        dispatch(asyncActions(UPDATE_PROFILE).success(response.data));
+        document.getElementById('loading').style.display = 'none';
+        document.querySelector('.form_error_text').style.display = 'none';
+        console.log('response.data.message');
+        console.log(response.data.message);
+        history.push(`/user/profile?notice=${response.data.message}`);
+      }
+    })
+    .catch(error => dispatch(asyncActions(UPDATE_PROFILE)
       .failure(true, error.response.data.message)));
 };
 

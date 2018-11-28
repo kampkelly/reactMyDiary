@@ -1,4 +1,4 @@
-import { SIGNIN, SIGNUP, SIGNOUT, PROFILE, NOTIFICATION } from '../actionTypes/UserConstants';
+import { SIGNIN, SIGNUP, SIGNOUT, PROFILE, NOTIFICATION, UPDATE_PROFILE } from '../actionTypes/UserConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
@@ -56,6 +56,22 @@ const userReducer = (state = initialState, action = {}) => {
         success: true, user: action.payload
       };
     case asyncActionName(PROFILE).failure:
+      return {
+        ...state,
+      };
+    case asyncActionName(UPDATE_PROFILE).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(UPDATE_PROFILE).success:
+      return {
+        ...state,
+        message: action.payload.message, success: true, user: action.payload.user
+      };
+    case asyncActionName(UPDATE_PROFILE).failure:
+      document.querySelector('.form_error_text').style.display = 'block';
+			document.querySelector('.form_error_text small').textContent = data.message;
       return {
         ...state,
       };

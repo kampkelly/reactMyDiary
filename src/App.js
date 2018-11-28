@@ -9,6 +9,7 @@ import NewEntry from './containers/Entry/NewEntry';
 import ViewEntry from './containers/Entry/ViewEntry';
 import UpdateEntry from './containers/Entry/UpdateEntry';
 import ViewProfile from './containers/Profile/ViewProfile';
+import EditProfile from './containers/Profile/EditProfile';
 
 
 
@@ -52,6 +53,7 @@ class App extends Component {
               <PrivateRoute exact path="/entries/:id" component={ViewEntry} />
               <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
               <PrivateRoute exact path="/user/profile" component={ViewProfile} />
+              <PrivateRoute exact path="/user/profile/edit" component={EditProfile} />
               <Redirect to="/entry/new" />
             </Switch>
           </div>
