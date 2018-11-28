@@ -26,22 +26,37 @@ class ViewProfile extends Component {
       entry: {},
       mmessage: '',
       reminderTime: '__:__',
-      success: false
+      success: false,
+      user: {}
     };
+    this.change = this.change.bind(this);
     this.changeSettings = this.changeSettings.bind(this);
     this.saveSettings = this.saveSettings.bind(this);
   }
 
   change(e) {
     this.setState({ [e.target.name]: e.target.value });
-    this.setState({ reminderTime: '10:00' });
-    this.setState({ diaryEntries: 100 });
+  }
+
+  checkNotice() {
+    const pageUrl = window.location.href;
+    const url = new URL(pageUrl);
+    const notice = url.searchParams.get('notice');
+    if (notice) {
+      if (notice.length >= 1) {
+        document.querySelector('#flash-message').style.display = 'block';
+        document.querySelector('#flash-message p').textContent = notice;
+        if (url.searchParams.get('warning')) {
+          document.querySelector('#flash-message').style.backgroundColor = '#e00a1e';
+        }
+      }
+    }
   }
 
   componentDidMount() {
     this.props.ShowProfile();
     this.props.AllEntries();
-    this.change = this.change.bind(this);
+    this.checkNotice();
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
   }
 
@@ -118,7 +133,7 @@ class ViewProfile extends Component {
   /**
    * @description - This method renders the jsx for this component
    * @returns {jsx} - jsx
-   * @memberof Header
+   * @memberof ViewProfile
    */
   render() {
     return (
