@@ -68,8 +68,6 @@ class UpdateEntry extends Component {
 
   change(e) {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state.title);
-    console.log(this.state.description);
   }
   /**
    * @description - This method renders the jsx for this component

@@ -8,6 +8,7 @@ import Signup from './containers/Signup/Signup';
 import NewEntry from './containers/Entry/NewEntry';
 import ViewEntry from './containers/Entry/ViewEntry';
 import UpdateEntry from './containers/Entry/UpdateEntry';
+import ViewProfile from './containers/Profile/ViewProfile';
 
 
 
@@ -16,6 +17,19 @@ import UpdateEntry from './containers/Entry/UpdateEntry';
  * @extends {Component}
  */
 class App extends Component {
+  constructor() {
+    super();
+    this.closeNotification = this.closeNotification.bind(this);
+  }
+
+  /**
+   *
+   * @returns {func} - null
+   * @memberof App
+   */
+  closeNotification() {
+    document.querySelector('#flash-message').style.display = 'none';
+  }
   /**
    * @description - This method renders the jsx for this component
    * @returns {jsx} - jsx
@@ -28,7 +42,7 @@ class App extends Component {
         <main>
           <div className="main container">
             <div id="flash-message">
-              <span>X</span>
+              <span onClick={this.closeNotification}>X</span>
               <p></p>
             </div>
             <Switch>
@@ -37,7 +51,8 @@ class App extends Component {
               <PrivateRoute path="/entry/new" component={NewEntry} />
               <PrivateRoute exact path="/entries/:id" component={ViewEntry} />
               <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
-              <Redirect to="/signin" />
+              <PrivateRoute exact path="/user/profile" component={ViewProfile} />
+              <Redirect to="/entry/new" />
             </Switch>
           </div>
         </main>

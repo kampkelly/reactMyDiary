@@ -1,4 +1,4 @@
-import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES } from '../actionTypes/EntryConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
@@ -60,6 +60,20 @@ const entryReducer = (state = initialState, action = {}) => {
       document.querySelector('.form_error_text small').textContent = action.payload.error;
       return {
         ...state, message: action.payload.error
+      };
+    case asyncActionName(ALL_ENTRIES).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(ALL_ENTRIES).success:
+      return {
+        ...state,
+        entries: action.payload, success: true
+      };
+    case asyncActionName(ALL_ENTRIES).failure:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,0 +1,78 @@
+$primary-color: #052F60;
+$secondary-color: #DFAC2C;
+$light-white-color: #8c8c8c;
+$white-color: #fafafa;
+$smartphone: "(min-width: 0px) and (max-width: 599px)";
+$tablet: "(min-width: 600px) and (max-width: 900px)";
+
+main {
+	background-image: url("https://i.imgur.com/n4ttyU5.jpg");
+  background-size: cover;
+	background-position: center;
+	background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+}
+#profile {
+	padding-top: 30px;
+	width: 90%;
+	margin: auto;
+    ul {
+        li {
+            margin-bottom: 10px;
+        }
+    }
+	.form-cover {
+        background: rgba(107, 101, 101, 0.3);
+        margin: auto;
+    }
+}
+#profile_details {
+	background: #e1e1e1;
+	padding: 30px;
+	min-height: 350px;
+	li, p {
+		color: #DEAB3B;
+	}
+	p.notification_text {
+		color: red;
+	}
+}
+#settings {
+	background: #c8c8c8;
+	padding: 30px;
+	min-height: 350px;
+    form {
+        color: gray;
+        padding: 10px;
+		width: 80%;
+		margin: auto;
+        .field {
+            background: none;
+            .control-form {
+                width: 100%;
+                background: gray;
+            }
+            button {
+                width: 100%;
+                background: $light-white-color;
+            }
+        }
+    }
+}
+@media #{$smartphone} {
+    #profile_details, #settings {
+        // padding-left: 20px;
+    }
+	form {
+		width: 90%;
+	}
+}
+@media #{$tablet} {
+    #settings form {
+        margin: auto;
+        width: 70%;
+    }
+	[class*='col-'] {
+	  padding-right: 0px;
+	}
+}
