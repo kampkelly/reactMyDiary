@@ -9,7 +9,7 @@ import { ShowEntry } from '../../requests/EntryRequests';
 import icon from '../../assets/Rolling.svg';
 
 /**
- * @class NewEntry
+ * @class ViewEntry
  * @extends {Component}
  */
 class ViewEntry extends Component {

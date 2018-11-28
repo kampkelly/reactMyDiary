@@ -1,12 +1,14 @@
-import { SIGNIN, SIGNUP, SIGNOUT } from '../actionTypes/UserConstants';
+import { SIGNIN, SIGNUP, SIGNOUT, PROFILE, NOTIFICATION } from '../actionTypes/UserConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
 const initialState = {
   isAuth: false,
   loading: false,
+  message: '',
   success: false,
-  failure: false
+  failure: false,
+  user: {}
 };
 
 const userReducer = (state = initialState, action = {}) => {
@@ -19,7 +21,7 @@ const userReducer = (state = initialState, action = {}) => {
     case asyncActionName(SIGNIN).success:
       return {
         ...state,
-        success: action.payload, isAuth: true
+        success: true, ...action.payload.user, isAuth: true
       };
     case asyncActionName(SIGNIN).failure:
       document.querySelector('.form_error_text').style.display = 'block';
@@ -40,6 +42,34 @@ const userReducer = (state = initialState, action = {}) => {
     case asyncActionName(SIGNUP).failure:
       document.querySelector('.form_error_text').style.display = 'block';
       document.querySelector('.form_error_text small').textContent = action.payload.error;
+      return {
+        ...state,
+      };
+    case asyncActionName(PROFILE).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(PROFILE).success:
+      return {
+        ...state,
+        success: true, user: action.payload
+      };
+    case asyncActionName(PROFILE).failure:
+      return {
+        ...state,
+      };
+    case asyncActionName(NOTIFICATION).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(NOTIFICATION).success:
+      return {
+        ...state,
+        success: true, message: action.payload.message, user: action.payload.user
+      };
+    case asyncActionName(NOTIFICATION).failure:
       return {
         ...state,
       };

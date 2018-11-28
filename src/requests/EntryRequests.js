@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
 import { asyncActions } from '../util/AsyncUtil';
-import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES } from '../actionTypes/EntryConstants';
 import { entryConstant } from '../constants/Constants';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -56,5 +56,16 @@ export const ModifyEntry = (id, title, description) => (dispatch) => {
       dispatch(asyncActions(UPDATE_ENTRY).loading(true));
     })
     .catch(error => dispatch(asyncActions(UPDATE_ENTRY)
+      .failure(true, error.response.data.message)));
+};
+
+export const AllEntries = () => (dispatch) => {
+  axios.get(`${entryConstant.ENTRIES_URL}`)
+    .then((response) => {
+      dispatch(asyncActions(ALL_ENTRIES).loading(false));
+      dispatch(asyncActions(ALL_ENTRIES).success(response.data.entries));
+      dispatch(asyncActions(ALL_ENTRIES).loading(true));
+    })
+    .catch(error => dispatch(asyncActions(ALL_ENTRIES)
       .failure(true, error.response.data.message)));
 };
