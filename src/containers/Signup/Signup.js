@@ -29,6 +29,7 @@ class Signup extends Component {
     };
     this.submitSignup = this.submitSignup.bind(this);
     this.change = this.change.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
   /**
@@ -43,6 +44,10 @@ class Signup extends Component {
       failure: props.failure,
       success: props.success,
     };
+  }
+
+  goToHome() {
+    this.props.history.push('/signup');
   }
 
   /**
@@ -129,7 +134,7 @@ class Signup extends Component {
                     <button type="submit" className="submit-button button-white" id="dkkd" onClick={this.submitSignup}>Create Account</button>
                   </div>
                   <div className="col-2-6 col-6-6-md col-6-6-xs mt-4-md mt-4-xs">
-                    <button type="submit" className="submit-button button-cancel" onClick={this.submitSignup}>Cancel</button>
+                    <button type="submit" className="submit-button button-cancel" onClick={this.goToHome}>Cancel</button>
                   </div>
                 </div>
                 <div className="field grid-container">

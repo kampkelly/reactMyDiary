@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './NewEntry.scss';
 import '../../styles/form.scss';
@@ -28,6 +29,7 @@ class NewEntry extends Component {
     };
     this.addEntry = this.addEntry.bind(this);
     this.change = this.change.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
   /**
@@ -48,6 +50,11 @@ class NewEntry extends Component {
   change(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
+
+  goToHome() {
+    this.props.history.push('/dashboard');
+  }
+
   /**
    * @description - This method renders the jsx for this component
    * @returns {jsx} - jsx
@@ -85,7 +92,7 @@ class NewEntry extends Component {
                   <button type="submit" className="submit-button button-white" onClick={this.addEntry}>Save to diary</button>
                 </div>
                 <div className="col-2-6 col-6-6-md col-6-6-xs cancel-div">
-                  <button type="submit" className="submit-button button-cancel mt-4-xs mt-4-md">Cancel</button>
+                  <button type="submit" className="submit-button button-cancel mt-4-xs mt-4-md" onClick={this.goToHome}>Cancel</button>
                 </div>
                 <div className="col-3-6 col-6-6-md col-6-6-xs">
 

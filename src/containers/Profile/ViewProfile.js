@@ -124,7 +124,7 @@ class ViewProfile extends Component {
       document.getElementById('loading').style.display = 'none';
       const createdat = this.state.user.createdat.split('T')[0];
       return (<div><ul className="no-styling"><li ><strong>Email:</strong>{this.state.user.email}</li><li ><strong>Name:</strong>{this.state.user.fullname}</li><li ><strong>Date of birth:</strong>{dateofbirth}</li><li ><strong>Date Joined:</strong>{createdat}</li></ul>
-      <div className=""><a href="edit-profile.html" className="underline"><small>Edit Profile</small></a><p className="light-white-text"><small>Total number of entries in diary: {this.state.diaryEntries}</small></p></div></div>);
+      <div className=""><Link to="profile/edit" className="underline"><small>Edit Profile</small></Link><p className="light-white-text"><small>Total number of entries in diary: {this.state.diaryEntries}</small></p></div></div>);
     } else {
       return (<p>user is not loaded</p>);
     }
