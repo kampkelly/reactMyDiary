@@ -19,7 +19,7 @@ const store = createStore(rootReducer, applyMiddleware(createLogger(), thunk));
 
 if (localStorage.diary_token) {
   setAuthToken(localStorage.diary_token);
-  store.dispatch(asyncActions(SIGNIN).success(jwtDecode(localStorage.token)));
+  store.dispatch(asyncActions(SIGNIN).success(jwtDecode(localStorage.diary_token)));
 }
 
 const Index = () => (

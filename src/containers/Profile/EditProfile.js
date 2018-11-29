@@ -30,6 +30,7 @@ class EditProfile extends Component {
     };
     this.change = this.change.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
   change(e) {
@@ -60,6 +61,10 @@ class EditProfile extends Component {
       user: props.user,
       success: props.success
     };
+  }
+
+  goToHome() {
+    this.props.history.push('/dashboard');
   }
 
   /**
@@ -118,7 +123,7 @@ class EditProfile extends Component {
                   <button type="submit" className="submit-button button-white" onClick={this.updateProfile}>Update Profile</button>
                 </div>
                 <div className="col-2-6 col-6-6-md col-6-6-xs cancel-div">
-                  <button type="submit" className="submit-button  button-cancel mt-4-xs mt-4-md">Cancel</button>
+                  <button type="submit" className="submit-button  button-cancel mt-4-xs mt-4-md" onClick={this.goToHome}>Cancel</button>
                 </div>
                 <div className="col-3-6 col-6-6-md col-6-6-xs">
 

@@ -29,6 +29,7 @@ class UpdateEntry extends Component {
     };
     this.updateEntry = this.updateEntry.bind(this);
     this.change = this.change.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +50,10 @@ class UpdateEntry extends Component {
       message: props.message,
       success: props.success
     };
+  }
+
+  goToHome() {
+    this.props.history.push('/dashboard');
   }
 
   /**
@@ -106,7 +111,7 @@ class UpdateEntry extends Component {
                   <button type="submit" className="submit-button button-white" onClick={this.updateEntry}>Update entry</button>
                 </div>
                 <div className="col-2-6 col-6-6-md col-6-6-xs cancel-div">
-                  <button type="submit" className="submit-button button-cancel mt-4-xs mt-4-md">Cancel</button>
+                  <button type="submit" className="submit-button button-cancel mt-4-xs mt-4-md" onClick={this.goToHome}>Cancel</button>
                 </div>
                 <div className="col-3-6 col-6-6-md col-6-6-xs">
 
