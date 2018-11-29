@@ -28,6 +28,15 @@ describe('<Header/>', () => {
   it('should have a mobile class', () => {
     expect(myComponent.find('.mobile').exists()).toBe(true);
   });
+  it('should have signout function', () => {
+    expect(myComponent.instance().signOut).toBeDefined();
+  });
+  it('should have showOnloggedIn state as object', () => {
+    expect(myComponent.instance().state.showOnloggedIn).toEqual('hide-all');
+  });
+  it('should have showOnloggedOut state as object', () => {
+    expect(myComponent.instance().state.showOnloggedOut).toEqual('');
+  });
   // it('should have a category dropdown', () => {
   //   expect(myComponent.find('div.categories').exists()).toBe(true);
   // });
