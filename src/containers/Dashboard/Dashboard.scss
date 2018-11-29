@@ -14,6 +14,10 @@ body {
 main {
 	background: linear-gradient(#eef5fe, transparent, #cde3fc);
 }
+.entries-title {
+  margin-top: 0px;
+  padding-top: 10px;
+}
 #dashboard {
 	padding-top: 30px;
 	height: 90vh;
@@ -151,6 +155,11 @@ main {
             a {
                 border-radius: 10px;
                 color: $secondary-color;
+            }
+            .title {
+              a {
+                color: $secondary-color;
+              }
             }
             .description {
                 color: black;

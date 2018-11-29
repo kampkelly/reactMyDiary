@@ -7,7 +7,8 @@ import './Dashboard.scss';
 import slide1 from '../../../public/images/slide1.jpg';
 import slide2 from '../../../public/images/slide2.jpg';
 import slide3 from '../../../public/images/slide3.jpg';
-import { AllEntries, PaginatedEntries } from '../../requests/EntriesRequests';
+import { AllEntries, PaginatedEntries } from '../../requests/EntryRequests';
+import icon from '../../assets/Rolling.svg';
 
 /**
  * @class Dashboard
@@ -18,6 +19,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       entries: [],
+      recentEntries: [],
       success: false
     };
     this.goToNewEntryPage = this.goToNewEntryPage.bind(this);
@@ -38,9 +40,9 @@ class Dashboard extends Component {
    * @memberof ViewTag
    */
   static getDerivedStateFromProps(props, state) {
-    goToNewEntryPage();
     return {
       entries: props.entries,
+      recentEntries: props.paginatedEntries,
       success: props.success
     };
   }
@@ -50,8 +52,8 @@ class Dashboard extends Component {
    * @returns {jsx} - jsx
    * @memberof Dashboard
    */
-  static goToNewEntryPage() {
-    alert('alert me');
+  goToNewEntryPage() {
+    this.props.history.push('/entry/new');
   }
 
   /**
@@ -60,8 +62,9 @@ class Dashboard extends Component {
    * @memberof Dashboard
    */
   showRecentEntries() {
-    if (this.state.entries.length) {
-      return this.state.entries.map(entry => (<li key={entry.id}><Link to={`entries/${entry.id}`}><h4 className="title">{entry.title.slice(0, 50)}</h4></Link></li>));
+    console.log(this.state);
+    if (this.state.recentEntries.length) {
+      return this.state.recentEntries.map(entry => (<li key={entry.id}><Link to={`entries/${entry.id}`}><h4 className="title">{entry.title.slice(0, 50)}</h4></Link></li>));
     } else {
       // document.querySelector('aside .no-styling h3').style.color = '#DFAC2C';
       return (<h3 className="text-center">No entries</h3>);
@@ -126,24 +129,20 @@ class Dashboard extends Component {
 
   /**
    *
-   * @returns {jsx} - jsx
+   *
    * @memberof Dashboard
    */
-  viewEntries() {
-    const offset = 0;
-    const limit = 7;
-    document.querySelector('#dashboard').style.display = 'none';
-    document.querySelector('#index').style.display = 'block';
-    document.querySelector('body').insertAdjacentHTML('afterbegin', '<img src="images/Rolling.svg" id="loading" />');
-    this.props.AllEntries();
-    // document.getElementById('loading').style.display = 'none';
+  componentDidUpdate() {
     if (this.state.entries.length) {
-			// eslint-disable-next-line
-			this.paginate(this.state.entries.length, offset, limit, this.state.entries, true);
+      const offset = 0;
+      const limit = 7;
+      document.querySelector('#dashboard').style.display = 'none';
+      document.querySelector('#index').style.display = 'block';
+      // this.paginate(this.state.entries.length, offset, limit, this.state.entries, true);
 			window.en = this.state.entries;
 			// eslint-disable-next-line
       this.insertEntriesList(offset, limit);
-		} else if (!this.state.entries.length) {
+    } else if (!this.state.entries.length) {
 			document.querySelector('#index .no-styling').innerHTML = '<h3 class="text-center danger-text">You do not have any entries yet..<a href="add.html">Create one now</a></h3>';
 		}
   }
@@ -153,13 +152,26 @@ class Dashboard extends Component {
    * @returns {jsx} - jsx
    * @memberof Dashboard
    */
+  viewEntries() {
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    this.props.AllEntries();
+  }
+
+  /**
+   *
+   * @returns {jsx} - jsx
+   * @memberof Dashboard
+   */
   insertEntriesList(offset, limit) {
+    console.log(offset);
+    console.log(limit);
     let allEntries = window.en;
-    allEntries = window.en.slice(offset, offset + limit);
+    // allEntries = this.state.entries.slice(offset, offset + limit);
+    allEntries = this.state.entries;
     let html = '<li></li>';
     allEntries.map(function (entry) {
       const date = entry.createdat.split('T')[0];
-      html += `<li>\n\t\t<h4 class="title"><a href="show.html?entries=${entry.id}">${entry.title}</a> <span class="small-text light-text">${date}</span></h4>\n\t\t<p class="description">${entry.description.slice(0, 150)}<a href="show.html?entries=${entry.id}">Read more...</a></p>\n\t\t</li>`;
+      html += `<li><h4 class="title"<a href="entries/${entry.id}">${entry.title}</a> <span class="small-text light-text">${date}</span></h4><p class="description">${entry.description.slice(0, 150)}<Link href="entries/${entry.id}">Read more...</Link></p></li>`;
       return entry;
     });
     document.querySelector('#index .no-styling').innerHTML = html;
@@ -178,7 +190,7 @@ class Dashboard extends Component {
     let offset = startFrom;
     for (let i = 1; i <= no; i += 1) {
       array.push(i);
-      li += `<li class="list-inline" onClick="this.insertEntriesList(${offset},${perPage})">${i}</li>`;
+      li += `<li class="list-inline" onClick="this.insertEntriesList(offset,perPage)">${i}</li>`;
       offset += perPage;
     }
     document.querySelector('.pagination').innerHTML = `<ul class="no-styling">\n\t\t${li}<li class="list-inline"></li>\n\t</ul>`;
@@ -242,7 +254,7 @@ class Dashboard extends Component {
 					</div>
         </section>
 				<section id="index">
-          <h3 className="underline text-center">Diary Entries</h3>
+          <h3 className="underline text-center entries-title">Diary Entries</h3>
           <ul className="no-styling">
 
           </ul>
@@ -257,6 +269,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   entries: state.entry.entries,
+  paginatedEntries: state.entry.paginatedEntries,
   success: state.entry.success
 });
 

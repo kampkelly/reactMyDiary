@@ -56,7 +56,7 @@ class App extends Component {
               <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
               <PrivateRoute exact path="/profile" component={ViewProfile} />
               <PrivateRoute exact path="/profile/edit" component={EditProfile} />
-              <Redirect to="/entry/new" />
+              <Redirect to="/dashboard" />
             </Switch>
           </div>
         </main>
