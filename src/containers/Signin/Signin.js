@@ -26,6 +26,7 @@ class Signin extends Component {
     };
     this.submitSignin = this.submitSignin.bind(this);
     this.change = this.change.bind(this);
+    this.goToHome = this.goToHome.bind(this);
   }
 
   /**
@@ -44,6 +45,10 @@ class Signin extends Component {
 
   change(e) {
     this.setState({ [e.target.name]: e.target.value })
+  }
+
+  goToHome() {
+    this.props.history.push('/signin');
   }
 
   /**
@@ -94,7 +99,7 @@ class Signin extends Component {
                   <button type="submit" className="submit-button button-white" onClick={this.submitSignin}>Signin</button>
                 </div>
                 <div className="col-2-6 col-6-6-md col-6-6-xs mt-4-md mt-4-xs">
-                  <button type="submit" className="submit-button  button-cancel mt-2-xs" onClick={this.submitSignin}>Cancel</button>
+                  <button type="submit" className="submit-button  button-cancel mt-2-xs" onClick={this.goToHome}>Cancel</button>
                 </div>
               </div>
                 <div className="field grid-container">

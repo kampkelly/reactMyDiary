@@ -1,0 +1,51 @@
+$primary-color: #137ad4;
+$secondary-color: #5E382B;
+$white-color: #fafafa;
+$smartphone: "(min-width: 0px) and (max-width: 599px)";
+$tablet: "(min-width: 600px) and (max-width: 900px)";
+
+main {
+	background-image: url("https://i.imgur.com/n4ttyU5.jpg");
+  background-size: cover;
+	background-position: center;
+	background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+}
+#show {
+  height: 100%;
+  width: 70%;
+	margin: auto;
+  padding: 10px;
+  padding-top: 60px;
+    article {
+        div {
+            float: right;
+            a:first-of-type {
+                padding-right: 10px;
+				color: #0d529d;
+				transition: 1s;
+            }
+        }
+        .title {
+            font-size: 1.4em;
+        }
+        .description {
+            line-height: 33px;
+            text-align: justify;
+            font-size: 1em;
+            clear: both;
+        }
+    }
+}
+@media #{$smartphone} {
+	#show {
+		width: 90%;
+		margin-top: 10px;
+	}
+}
+@media #{$tablet} {
+	#show {
+		width: 90%;
+		margin-top: 20px;
+	}
+}

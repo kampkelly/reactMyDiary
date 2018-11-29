@@ -13,6 +13,12 @@
 .text-center {
     text-align: center;
 }
+.hide-all {
+  display: none !important;
+}
+#loading {
+  z-index: 100;
+}
 .list-inline {
     display: inline;
 }

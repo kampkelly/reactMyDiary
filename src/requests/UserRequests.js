@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
-import { asyncActions } from '../util/AsyncUtil';
 import setAuthToken from '../util/AuthTokenUtil';
-import { SIGNIN, SIGNUP } from '../actionTypes/UserConstants';
+import { asyncActions } from '../util/AsyncUtil';
+import { SIGNIN, SIGNUP, PROFILE, NOTIFICATION, UPDATE_PROFILE} from '../actionTypes/UserConstants';
 import { userConstant } from '../constants/Constants';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -16,7 +16,6 @@ export const SigninUser = (email, password) => (dispatch) => {
       if (response.data.status === 'Success') {
         localStorage.setItem('diary_token', response.data.token);
         setAuthToken(response.data.token);
-        // window.location = `dashboard.html?notice=${response.data.message}`;
         history.push('/dashboard');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';
@@ -34,7 +33,7 @@ export const SignupUser = (email, password, confirmPassword, dateOfBirth, fullNa
       document.querySelector('.form_error_text').style.display = 'none';
       if (response.data.status === 'Success') {
         localStorage.setItem('diary_token', response.data.token);
-        // window.location = `dashboard.html?notice=${response.data.message}`;
+        setAuthToken(response.data.token);
         history.push('/dashboard');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';
@@ -42,5 +41,46 @@ export const SignupUser = (email, password, confirmPassword, dateOfBirth, fullNa
       }
     })
     .catch(error => dispatch(asyncActions(SIGNUP)
+      .failure(true, error.response.data.message)));
+};
+
+export const ShowProfile = () => (dispatch) => {
+  axios.get(userConstant.PROFILE_URL)
+    .then((response) => {
+      if (response.data.status === 'Success') {
+        dispatch(asyncActions(PROFILE).success(response.data.user));
+      }
+    })
+    .catch(error => dispatch(asyncActions(PROFILE)
+      .failure(true, error.response.data.message)));
+};
+
+export const UpdateProfile = (email, fullName, dateOfBirth) => (dispatch) => {
+  axios.put(userConstant.PROFILE_URL, { email, fullName, dateOfBirth })
+    .then((response) => {
+      if (response.data.status === 'Success') {
+        dispatch(asyncActions(UPDATE_PROFILE).success(response.data));
+        document.getElementById('loading').style.display = 'none';
+        document.querySelector('.form_error_text').style.display = 'none';
+        console.log('response.data.message');
+        console.log(response.data.message);
+        history.push(`/user/profile?notice=${response.data.message}`);
+      }
+    })
+    .catch(error => dispatch(asyncActions(UPDATE_PROFILE)
+      .failure(true, error.response.data.message)));
+};
+
+export const SaveNotification = reminderTime => (dispatch) => {
+  axios.put(userConstant.NOTIFICATION_URL, { reminderTime })
+    .then((response) => {
+      if (response.data.status === 'Success') {
+        dispatch(asyncActions(NOTIFICATION).success(response.data));
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('flash-message').style.display = 'block';
+				document.querySelector('#flash-message p').textContent = response.data.message;
+      }
+    })
+    .catch(error => dispatch(asyncActions(NOTIFICATION)
       .failure(true, error.response.data.message)));
 };
