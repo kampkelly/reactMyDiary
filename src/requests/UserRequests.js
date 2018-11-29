@@ -16,7 +16,7 @@ export const SigninUser = (email, password) => (dispatch) => {
       if (response.data.status === 'Success') {
         localStorage.setItem('diary_token', response.data.token);
         setAuthToken(response.data.token);
-        history.push('/entry/new');
+        history.push('/dashboard');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';
         document.querySelector('.form_error_text small').textContent = response.data.message;
@@ -34,7 +34,7 @@ export const SignupUser = (email, password, confirmPassword, dateOfBirth, fullNa
       if (response.data.status === 'Success') {
         localStorage.setItem('diary_token', response.data.token);
         setAuthToken(response.data.token);
-        history.push('/signin');
+        history.push('/dashboard');
       } else {
         document.querySelector('.form_error_text').style.display = 'block';
         document.querySelector('.form_error_text small').textContent = response.data.message;

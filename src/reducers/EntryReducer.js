@@ -1,10 +1,11 @@
-import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../actionTypes/EntryConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
 const initialState = {
   entries: [],
   entry: {},
+  paginatedEntries: [],
   loading: false,
   message: '',
   success: false,
@@ -72,6 +73,20 @@ const entryReducer = (state = initialState, action = {}) => {
         entries: action.payload, success: true
       };
     case asyncActionName(ALL_ENTRIES).failure:
+      return {
+        ...state,
+      };
+    case asyncActionName(PAGINATED_ENTRIES).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(PAGINATED_ENTRIES).success:
+      return {
+        ...state,
+        paginatedEntries: action.payload, success: true
+      };
+    case asyncActionName(PAGINATED_ENTRIES).failure:
       return {
         ...state,
       };

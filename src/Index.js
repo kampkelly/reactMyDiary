@@ -15,6 +15,10 @@ import './styles/style.scss';
 import App from './App';
 import rootReducer from './reducers/Index';
 
+if (localStorage.diary_token) {
+  setAuthToken(localStorage.diary_token);
+}
+
 const store = createStore(rootReducer, applyMiddleware(createLogger(), thunk));
 
 if (localStorage.diary_token) {

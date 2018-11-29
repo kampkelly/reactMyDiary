@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import Header from './containers/Header/Header';
 import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
+import Dashboard from './containers/Dashboard/Dashboard';
 import NewEntry from './containers/Entry/NewEntry';
 import ViewEntry from './containers/Entry/ViewEntry';
 import UpdateEntry from './containers/Entry/UpdateEntry';
@@ -47,6 +48,7 @@ class App extends Component {
               <p></p>
             </div>
             <Switch>
+              <PrivateRoute path="/dashboard" component={Dashboard} />
               <Route path="/signup" exact component={Signup} />
               <Route path="/signin" exact component={Signin} />
               <PrivateRoute path="/entry/new" component={NewEntry} />
@@ -54,7 +56,7 @@ class App extends Component {
               <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
               <PrivateRoute exact path="/profile" component={ViewProfile} />
               <PrivateRoute exact path="/profile/edit" component={EditProfile} />
-              <Redirect to="/entry/new" />
+              <Redirect to="/dashboard" />
             </Switch>
           </div>
         </main>
