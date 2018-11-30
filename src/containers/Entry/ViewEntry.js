@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import './ViewEntry.scss';
 import '../../styles/sidebar.scss';
 import { ShowEntry } from '../../requests/EntryRequests';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class ViewEntry
@@ -28,7 +27,7 @@ class ViewEntry extends Component {
 
   componentDidMount() {
     this.props.ShowEntry(this.props.match.params.id);
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
   /**

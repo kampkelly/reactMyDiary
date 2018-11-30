@@ -8,7 +8,6 @@ import '../../styles/form.scss';
 import '../../styles/sidebar.scss';
 import { AddEntry } from '../../requests/EntryRequests';
 import { validateForm } from '../../helpers/validateForm';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class NewEntry
@@ -42,7 +41,7 @@ class NewEntry extends Component {
     const values = { title: this.state.title, description: this.state.description };
     const noneEmpty = validateForm(errorMessage, values, e);
     if (noneEmpty === true) {
-      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
       this.props.AddEntry(this.state.title, this.state.description);
     }
   }
