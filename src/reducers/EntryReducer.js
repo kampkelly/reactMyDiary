@@ -12,7 +12,7 @@ const initialState = {
   failure: false,
 };
 
-const entryReducer = (state = initialState, action = {}) => {
+const EntryReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case asyncActionName(NEW_ENTRY).loading:
       return {
@@ -95,4 +95,4 @@ const entryReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default entryReducer;
+export default EntryReducer;

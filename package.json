@@ -7,6 +7,8 @@
     "dev-eslint": "src/**/*.js"
   },
   "scripts": {
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "coverallsgg": "jest --coverage && cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "dev-eslint": "npm run eslint && webpack-dev-server --mode development --hot",
     "dev": "webpack-dev-server --mode development --hot --display-error-details",
     "start": "node server.js",
@@ -25,7 +27,9 @@
       "./SetupTests.js"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-static-stubs/$1",
+      "^.+\\.(jpg|jpeg)$": "jest-static-stubs/jpg",
+      "^.+\\.gif$": "jest-static-stubs/gif",
+      "^.+\\.(eot|otf|svg|png|ttf|woff|woff2|mp3|m4a|aac|oga|css|less|scss)$": "identity-obj-proxy",
       "\\.(css|less|scss|png)$": "identity-obj-proxy"
     }
   },
@@ -76,6 +80,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.1",
     "dotenv-webpack": "^1.5.7",
     "enzyme": "^3.7.0",
