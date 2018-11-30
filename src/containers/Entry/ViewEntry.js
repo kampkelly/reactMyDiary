@@ -12,7 +12,7 @@ import icon from '../../assets/Rolling.svg';
  * @class ViewEntry
  * @extends {Component}
  */
-class ViewEntry extends Component {
+export class ViewEntry extends Component {
   /**
    *Creates an instance of NewEntry.
    * @memberof ViewEntry
@@ -28,7 +28,7 @@ class ViewEntry extends Component {
 
   componentDidMount() {
     this.props.ShowEntry(this.props.match.params.id);
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    // document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
   }
 
   /**

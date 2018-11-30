@@ -31,10 +31,10 @@ describe('<Header/>', () => {
   it('should have signout function', () => {
     expect(myComponent.instance().signOut).toBeDefined();
   });
-  it('should have showOnloggedIn state as object', () => {
+  it('should have showOnloggedIn state as string', () => {
     expect(myComponent.instance().state.showOnloggedIn).toEqual('hide-all');
   });
-  it('should have showOnloggedOut state as object', () => {
+  it('should have showOnloggedOut state as string', () => {
     expect(myComponent.instance().state.showOnloggedOut).toEqual('');
   });
   // it('should have a category dropdown', () => {

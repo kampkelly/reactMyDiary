@@ -27,7 +27,9 @@
       "./SetupTests.js"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-static-stubs/$1",
+      "^.+\\.(jpg|jpeg)$": "jest-static-stubs/jpg",
+      "^.+\\.gif$": "jest-static-stubs/gif",
+      "^.+\\.(eot|otf|svg|png|ttf|woff|woff2|mp3|m4a|aac|oga|css|less|scss)$": "identity-obj-proxy",
       "\\.(css|less|scss|png)$": "identity-obj-proxy"
     }
   },
