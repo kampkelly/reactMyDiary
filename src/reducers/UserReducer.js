@@ -11,7 +11,7 @@ const initialState = {
   user: {}
 };
 
-const userReducer = (state = initialState, action = {}) => {
+const UserReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case asyncActionName(SIGNIN).loading:
       return {

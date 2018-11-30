@@ -82,7 +82,7 @@ class Signin extends Component {
                   <label className="white-text">Email Address</label>
                 </div>
                 <div className="col-4-6 col-6-6-md col-6-6-xs">
-                  <input type="email" required="true" className="control-form" id="signup_email" name="email" value={email} onChange={this.change} autoComplete="email" />
+                  <input type="email" className="control-form" id="signup_email" name="email" value={email} onChange={this.change} autoComplete="email" />
                 </div>
               </div>
               <div className="field grid-container">
@@ -90,7 +90,7 @@ class Signin extends Component {
                   <label className="white-text">Password</label>
                 </div>
                 <div className="col-4-6 col-6-6-md col-6-6-xs">
-                  <input type="password" required="true" className="control-form" id="signup_password" name="password" value={password} onChange={this.change} autoComplete="password" />
+                  <input type="password" className="control-form" id="signup_password" name="password" value={password} onChange={this.change} autoComplete="password" />
                 </div>
               </div>
               <div className="field grid-container">
@@ -106,7 +106,7 @@ class Signin extends Component {
                   <div className="col-2-6 col-6-6-md col-6-6-xs"></div>
                   <div className="col-4-6 col-6-6-md col-6-6-xs">
                     <Link key="1" to="/signup" className="underline">Signup</Link>
-                    <Link key="1" to="/forgot/password" className="underline">Forgot password?</Link>
+                    <Link key="2" to="/forgot/password" className="underline">Forgot password?</Link>
                   </div>
                 </div>
             </form>

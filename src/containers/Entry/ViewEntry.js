@@ -11,7 +11,7 @@ import { ShowEntry } from '../../requests/EntryRequests';
  * @class ViewEntry
  * @extends {Component}
  */
-class ViewEntry extends Component {
+export class ViewEntry extends Component {
   /**
    *Creates an instance of NewEntry.
    * @memberof ViewEntry

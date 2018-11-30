@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import { asyncActions } from '../util/AsyncUtil';
 import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../actionTypes/EntryConstants';
 import { entryConstant } from '../constants/Constants';
+import icon from '../assets/Rolling.svg';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
@@ -27,6 +28,7 @@ export const AddEntry = (title, description) => (dispatch) => {
 };
 
 export const ShowEntry = id => (dispatch) => {
+  // document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`)
   axios.get(`${entryConstant.ENTRIES_URL}/${id}`)
     .then((response) => {
       dispatch(asyncActions(SHOW_ENTRY).loading(false));
