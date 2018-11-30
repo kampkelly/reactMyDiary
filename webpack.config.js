@@ -36,7 +36,7 @@ module.exports = {
     hot: true
   },
   entry: [
-    path.resolve(__dirname, 'src', 'index.js')
+    path.resolve(__dirname, 'src', 'Index.js')
   ],
   output: {
     path: path.resolve(__dirname, './dist'),

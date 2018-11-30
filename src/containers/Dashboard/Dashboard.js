@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import './Dashboard.scss';
-import slide1 from '../../../public/images/slide1.jpg';
-import slide2 from '../../../public/images/slide2.jpg';
-import slide3 from '../../../public/images/slide3.jpg';
 import { AllEntries, PaginatedEntries } from '../../requests/EntryRequests';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class Dashboard
@@ -153,7 +149,7 @@ class Dashboard extends Component {
    * @memberof Dashboard
    */
   viewEntries() {
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
     this.props.AllEntries();
   }
 
@@ -227,21 +223,21 @@ class Dashboard extends Component {
 										<h1 className="text-center white-text">Mark Down Important Events</h1>
 										<p className="text-center white-text"></p>
 									</div>
-                  <img src="https://via.placeholder.com/300?text=AuthorsHaven"></img>
+                  <img src="https://i.imgur.com/iq2usdS.jpg"></img>
 								</div>
 								<div className="img2-container slideshow">
 									<div className="content p-2">
 										<h1 className="text-center white-text">Organise Your Life Events</h1>
 										<p className="text-center white-text"></p>
 									</div>
-									<img src="https://via.placeholder.com/300?text=AuthorsHaven"></img>
+									<img src="https://i.imgur.com/9EcU25h.jpg"></img>
 								</div>
 								<div className="img3-container slideshow">
 									<div className="content p-2">
 										<h1 className="text-center white-text">Keep A Diary, And Someday It'll Keep You</h1>
 										<p className="text-center white-text"></p>
 									</div>
-									<img src={slide3}></img>
+									<img src="https://i.imgur.com/kQ3f0iH.jpg"></img>
 								</div>
 								<ul className="no-styling">
 									<li><h4 className="text-info"><b>01</b></h4></li>

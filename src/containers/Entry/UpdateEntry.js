@@ -7,7 +7,6 @@ import '../../styles/form.scss';
 import '../../styles/sidebar.scss';
 import { ModifyEntry, ShowEntry } from '../../requests/EntryRequests';
 import { validateForm } from '../../helpers/validateForm';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class UpdateEntry
@@ -34,7 +33,7 @@ class UpdateEntry extends Component {
 
   componentDidMount() {
     this.props.ShowEntry(this.props.match.params.id);
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
   /**
@@ -66,7 +65,7 @@ class UpdateEntry extends Component {
     const values = { title: this.state.title, description: this.state.description };
     const noneEmpty = validateForm(errorMessage, values, e);
     if (noneEmpty === true) {
-      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
       this.props.ModifyEntry(this.props.match.params.id, this.state.title, this.state.description);
     }
   }

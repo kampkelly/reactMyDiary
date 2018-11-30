@@ -8,7 +8,6 @@ import '../../styles/sidebar.scss';
 import { SaveNotification, ShowProfile } from '../../requests/UserRequests';
 import { AllEntries } from '../../requests/EntryRequests';
 import { validateForm } from '../../helpers/validateForm';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class ViewEntry
@@ -57,7 +56,7 @@ class ViewProfile extends Component {
     this.props.ShowProfile();
     this.props.AllEntries();
     this.checkNotice();
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
   /**
@@ -105,7 +104,7 @@ class ViewProfile extends Component {
     const values = { reminderTime: this.state.reminderTime };
     const noneEmpty = validateForm(errorMessage, values, e);
     if (noneEmpty === true) {
-      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
       this.props.SaveNotification(this.state.reminderTime);
     }
   }

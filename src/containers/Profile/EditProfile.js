@@ -7,7 +7,6 @@ import './EditProfile.scss';
 import '../../styles/sidebar.scss';
 import { ShowProfile, UpdateProfile } from '../../requests/UserRequests';
 import { validateForm } from '../../helpers/validateForm';
-import icon from '../../assets/Rolling.svg';
 
 /**
  * @class EditProfile
@@ -40,7 +39,7 @@ class EditProfile extends Component {
 
   componentDidMount() {
     this.props.ShowProfile();
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
   /**
@@ -76,7 +75,7 @@ class EditProfile extends Component {
     e.preventDefault();
     const { dateOfBirth, email, fullName } = this.state;
     this.props.UpdateProfile(email, fullName, dateOfBirth);
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src=${icon} id="loading"></img>`);
+    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
   /**
