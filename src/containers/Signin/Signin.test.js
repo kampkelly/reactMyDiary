@@ -3,17 +3,20 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import UpdateEntry from './UpdateEntry';
-import EntryReducer from '../../reducers/EntryReducer';
+import Signin from './Signin';
+import UserReducer from '../../reducers/UserReducer';
 import { asyncActions } from '../../util/AsyncUtil';
-import { UPDATE_ENTRY } from '../../actionTypes/EntryConstants';
+import { SIGNIN } from '../../actionTypes/UserConstants';
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
-  entry: {
-    entry: {},
+  user: {
+    user: {},
     message: '',
     success: false
+  },
+  entry: {
+    entries: []
   }
 });
 
@@ -21,22 +24,17 @@ const props = {
   history: {
     push: jest.fn()
   },
-  match: {
-    params: {
-      id: 1
-    }
-  },
-  ShowEntry: jest.fn()
+  submitSignin: jest.fn(),
 };
 
 let component;
 let myComponent;
 
-describe('<UpdateEntry/>', () => {
+describe('<Signin/>', () => {
   beforeEach(() => {
     component = shallow(
       <Provider store={store}>
-        <UpdateEntry {...props} />
+        <Signin {...props} />
       </Provider>
     );
     document.body.innerHTML =
@@ -46,65 +44,64 @@ describe('<UpdateEntry/>', () => {
   it('should render without throwing an error', () => {
     expect(component).toMatchSnapshot();
   });
-  it('should show update entry', () => {
-    const payload = true;
+  it('should show profile', () => {
+    const payload = {};
     const expectedAction = {
-      type: 'UPDATE_ENTRY_SUCCESS',
+      type: 'SIGNIN_SUCCESS',
       payload
     };
-    expect(asyncActions(UPDATE_ENTRY).success(payload)).toEqual(expectedAction);
+    expect(asyncActions(SIGNIN).success(payload)).toEqual(expectedAction);
   });
-  it('should dispatch an action when updating an entry is loading', () => {
+  it('should dispatch an action when signin is loading', () => {
     const payload = false;
     const action = {
-      type: 'UPDATE_ENTRY_LOADING',
+      type: 'SIGNIN_LOADING',
       payload
     };
-    const newState = EntryReducer({}, action);
+    const newState = UserReducer({}, action);
     expect(newState).toEqual({
       loading: payload
     });
   });
-  it('should dispatch an action to update an entry', () => {
-    const payload = {};
+  it('should dispatch an action to signin a user', () => {
+    const payload = {
+      message: '',
+      user: {}
+    };
     const action = {
-      type: 'UPDATE_ENTRY_SUCCESS',
+      type: 'SIGNIN_SUCCESS',
       payload
     };
-    const newState = EntryReducer({}, action);
+    const newState = UserReducer({}, action);
     expect(newState).toEqual({
-      entry: {},
+      isAuth: true,
       success: true,
     });
   });
-  it('should dispatch an action when updating an entry fails', () => {
+  it('should dispatch an action when signin a user fails', () => {
     document.body.innerHTML =
     '<div>' +
     '  <span id="loading" />' +
     '  <span class="form_error_text" /><small></small><span>' +
     '  <button id="button" />' +
     '</div>';
-    const payload = {
-      error: ''
-    };
+    const payload = {};
     const action = {
-      type: 'UPDATE_ENTRY_FAILING',
+      type: 'SIGNIN_FAILING',
       payload
     };
-    const newState = EntryReducer({}, action);
-    expect(newState).toEqual({
-      message: payload.error
-    });
+    const newState = UserReducer({}, action);
+    expect(newState).toEqual({});
   });
-  it('should click submit button', () => {
+  it('should signin user', () => {
     document.body.innerHTML =
-    '<body>' +
+    '<div>' +
     '  <span id="loading" />' +
     '  <span class="form_error_text" /><small></small><span>' +
     '  <button id="button" />' +
-    '</body>';
-    const input = myComponent.find('input#title');
-    input.simulate('change', { target: { value: 'New name' } });
+    '</div>';
+    const input = myComponent.find('input[name="email"]');
+    input.simulate('change', { target: { value: 'email@example.com' } });
     myComponent.find('button.button-white').simulate('click', {
       preventDefault: () => {
       }

@@ -15,11 +15,12 @@ import { validateForm } from '../../helpers/validateForm';
 class UpdateEntry extends Component {
   /**
    *Creates an instance of UpdateEntry.
-   * @memberof NewEntry
+   * @memberof UpdateEntry
    */
   constructor() {
     super();
     this.state = {
+      editMode: false,
       description: '',
       entry: {},
       title: '',
@@ -32,6 +33,7 @@ class UpdateEntry extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
     this.props.ShowEntry(this.props.match.params.id);
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
@@ -44,11 +46,23 @@ class UpdateEntry extends Component {
    * @memberof ViewTag
    */
   static getDerivedStateFromProps(props, state) {
-    return {
-      entry: props.entry,
-      message: props.message,
-      success: props.success
-    };
+    if (state.editMode) {
+      return {
+        entry: props.entry,
+        message: props.message,
+        success: props.success
+      };
+    }
+    if (!state.editMode && props.entry.title) {
+      return {
+        editMode: true,
+        title: props.entry.title,
+        description: props.entry.description,
+        entry: props.entry,
+        message: props.message,
+        success: props.success
+      };
+    }
   }
 
   goToHome() {
@@ -79,7 +93,7 @@ class UpdateEntry extends Component {
    * @memberof Header
    */
   render() {
-    const { title, description } = this.state.entry;
+    const { title, description } = this.state;
     return (
       <div>
         <section id="add">

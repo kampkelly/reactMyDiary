@@ -14,7 +14,7 @@ export const AddEntry = (title, description) => (dispatch) => {
       dispatch(asyncActions(NEW_ENTRY).success(true));
       if (response.data.status === 'Success') {
         document.getElementById('loading').style.display = 'none';
-        history.push('/entry/new');
+        history.push(`/entries/${response.data.entry.id}?notice=${response.data.message}`);
       } else {
         document.getElementById('loading').style.display = 'none';
         document.querySelector('.form_error_text').style.display = 'block';
@@ -48,7 +48,7 @@ export const ModifyEntry = (id, title, description) => (dispatch) => {
       if (response.data.status === 'Success') {
         dispatch(asyncActions(UPDATE_ENTRY).success(response.data.entry));
         document.getElementById('loading').style.display = 'none';
-        history.push(`/entries/${response.data.entry.id}`);
+        history.push(`/entries/${response.data.entry.id}?notice=${response.data.message}`);
       } else {
         document.getElementById('loading').style.display = 'none';
         document.querySelector('.form_error_text').style.display = 'block';

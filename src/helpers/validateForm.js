@@ -1,6 +1,6 @@
 export const checkCheckedValues = checkedValues => {
   // eslint-disable-next-line
-  for (var key in checkedValues) {
+  for (let key in checkedValues) {
     if (checkedValues[key] === '') {
       return false;
     }

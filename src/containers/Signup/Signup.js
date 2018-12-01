@@ -33,6 +33,10 @@ class Signup extends Component {
     this.goToHome = this.goToHome.bind(this);
   }
 
+  componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/Xxvt7y4.jpg')";
+  }
+
   /**
    * @description - This method runs whenever redux state changes
    * @returns {object} state
@@ -66,6 +70,7 @@ class Signup extends Component {
       const password = this.state.password.toLowerCase();
       const confirmPassword = this.state.confirmPassword.toLowerCase();
       this.props.SignupUser(email, password, confirmPassword, this.state.dateOfBirth, this.state.fullName);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
     }
   }
 

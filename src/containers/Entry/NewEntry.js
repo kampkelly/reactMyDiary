@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import './NewEntry.scss';
 import '../../styles/form.scss';
@@ -29,6 +28,10 @@ class NewEntry extends Component {
     this.addEntry = this.addEntry.bind(this);
     this.change = this.change.bind(this);
     this.goToHome = this.goToHome.bind(this);
+  }
+
+  componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
   }
 
   /**

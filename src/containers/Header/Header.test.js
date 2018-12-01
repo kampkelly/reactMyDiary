@@ -1,11 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import Header from './Header';
 
-const mockStore = configureMockStore();
-const store = mockStore({});
+const mockStore = configureMockStore([thunk]);
+const store = mockStore({
+  signOut: jest.fn(),
+});
 
 let component;
 let myComponent;
@@ -37,7 +40,12 @@ describe('<Header/>', () => {
   it('should have showOnloggedOut state as string', () => {
     expect(myComponent.instance().state.showOnloggedOut).toEqual('');
   });
-  // it('should have a category dropdown', () => {
-  //   expect(myComponent.find('div.categories').exists()).toBe(true);
-  // });
+  it('should click sign out', () => {
+    // const mockCallBack = jest.fn();
+    myComponent.find('.mobile-logout a[href="#logout"]').simulate('click', {
+      preventDefault: () => {
+      }
+     });
+    // expect(mockCallBack.mock.calls.length).toEqual(1);
+  });
 });

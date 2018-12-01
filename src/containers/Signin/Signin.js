@@ -29,6 +29,10 @@ class Signin extends Component {
     this.goToHome = this.goToHome.bind(this);
   }
 
+  componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/Xxvt7y4.jpg')";
+  }
+
   /**
    * @description - This method runs whenever redux state changes
    * @returns {object} state
@@ -65,6 +69,7 @@ class Signin extends Component {
       const email = this.state.email.toLowerCase().replace(/\s+/g, '');
       const password = this.state.password.toLowerCase();
       this.props.SigninUser(email, password);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
     }
   }
 

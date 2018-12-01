@@ -11,10 +11,16 @@ import { SHOW_ENTRY } from '../../actionTypes/EntryConstants';
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
   entry: {
-    entry: {},
+    entry: {
+      createdat: '',
+      description: 'the description',
+      id: 1,
+      title: 'the title'
+    },
     message: '',
-    success: false
-  }
+    success: true
+  },
+  ShowEntry: jest.fn()
 });
 
 const props = {
@@ -36,13 +42,16 @@ describe('<ViewEntry/>', () => {
         <ViewEntry {...props} />
       </Provider>
     );
-    // myComponent = component.dive({ context: { store } }).dive();
     document.body.innerHTML =
-    '<body>' +
+    '<body><main></main>' +
     '  <span id="loading" />' +
     '  <span class="form_error_text" /><small></small><span>' +
     '  <button id="button" />' +
     '</body>';
+    myComponent = component.dive({ context: { store } }).dive();
+  });
+  it('should render without throwing an error', () => {
+    expect(component).toMatchSnapshot();
   });
   it('should show a new entry', () => {
     const payload = true;
@@ -87,5 +96,70 @@ describe('<ViewEntry/>', () => {
     expect(newState).toEqual({
       message: payload.error
     });
+  });
+  //extra
+  it('should dispatch an action when getting all entries is loading', () => {
+    const payload = false;
+    const action = {
+      type: 'ALL_ENTRIES_LOADING',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({
+      loading: payload
+    });
+  });
+  it('should dispatch an action to get all entries', () => {
+    const payload = [];
+    const action = {
+      type: 'ALL_ENTRIES_SUCCESS',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({
+      entries: payload,
+      success: true,
+    });
+  });
+  it('should dispatch an action when getting all entries fails', () => {
+    const payload = {};
+    const action = {
+      type: 'ALL_ENTRIES_FAILING',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({});
+  });
+  it('should dispatch an action when getting all entries is loading', () => {
+    const payload = false;
+    const action = {
+      type: 'PAGINATED_ENTRIES_LOADING',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({
+      loading: payload
+    });
+  });
+  it('should dispatch an action to get all entries', () => {
+    const payload = [];
+    const action = {
+      type: 'PAGINATED_ENTRIES_SUCCESS',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({
+      paginatedEntries: payload,
+      success: true,
+    });
+  });
+  it('should dispatch an action when getting all entries fails', () => {
+    const payload = {};
+    const action = {
+      type: 'PAGINATED_ENTRIES_FAILING',
+      payload
+    };
+    const newState = EntryReducer({}, action);
+    expect(newState).toEqual({});
   });
 });

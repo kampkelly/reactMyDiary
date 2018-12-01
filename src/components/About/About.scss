@@ -1,0 +1,21 @@
+$primary-color: #052F60;
+$secondary-color: #DFAC2C;
+$light-white-color: #8c8c8c;
+$white-color: #fafafa;
+$smartphone: "(min-width: 0px) and (max-width: 599px)";
+//$smartphone: "(min-width: 0px) and (max-width: 467px)";
+$tablet: "(min-width: 600px) and (max-width: 900px)";
+#about {
+    width:80%;
+    margin:auto;
+    h2 {
+        font-weight: 500;
+    }
+    p {
+        line-height: 34px;
+        font-weight: 300;
+        font-size: 1.1em;
+        text-align: justify;
+    }
+
+}

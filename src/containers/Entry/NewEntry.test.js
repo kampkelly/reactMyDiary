@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import UpdateEntry from './UpdateEntry';
+import NewEntry from './NewEntry';
 import EntryReducer from '../../reducers/EntryReducer';
 import { asyncActions } from '../../util/AsyncUtil';
-import { UPDATE_ENTRY } from '../../actionTypes/EntryConstants';
+import { NEW_ENTRY } from '../../actionTypes/EntryConstants';
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
@@ -26,17 +26,17 @@ const props = {
       id: 1
     }
   },
-  ShowEntry: jest.fn()
+  addEntry: jest.fn()
 };
 
 let component;
 let myComponent;
 
-describe('<UpdateEntry/>', () => {
+describe('<NewEntry/>', () => {
   beforeEach(() => {
     component = shallow(
       <Provider store={store}>
-        <UpdateEntry {...props} />
+        <NewEntry {...props} />
       </Provider>
     );
     document.body.innerHTML =
@@ -46,18 +46,18 @@ describe('<UpdateEntry/>', () => {
   it('should render without throwing an error', () => {
     expect(component).toMatchSnapshot();
   });
-  it('should show update entry', () => {
-    const payload = true;
+  it('should show new entry', () => {
+    const payload = {};
     const expectedAction = {
-      type: 'UPDATE_ENTRY_SUCCESS',
+      type: 'NEW_ENTRY_SUCCESS',
       payload
     };
-    expect(asyncActions(UPDATE_ENTRY).success(payload)).toEqual(expectedAction);
+    expect(asyncActions(NEW_ENTRY).success(payload)).toEqual(expectedAction);
   });
-  it('should dispatch an action when updating an entry is loading', () => {
+  it('should dispatch an action when create an entry is loading', () => {
     const payload = false;
     const action = {
-      type: 'UPDATE_ENTRY_LOADING',
+      type: 'NEW_ENTRY_LOADING',
       payload
     };
     const newState = EntryReducer({}, action);
@@ -65,19 +65,18 @@ describe('<UpdateEntry/>', () => {
       loading: payload
     });
   });
-  it('should dispatch an action to update an entry', () => {
-    const payload = {};
+  it('should dispatch an action to create an entry', () => {
+    const payload = true;
     const action = {
-      type: 'UPDATE_ENTRY_SUCCESS',
+      type: 'NEW_ENTRY_SUCCESS',
       payload
     };
     const newState = EntryReducer({}, action);
     expect(newState).toEqual({
-      entry: {},
-      success: true,
+      success: action.payload,
     });
   });
-  it('should dispatch an action when updating an entry fails', () => {
+  it('should dispatch an action when creating an entry fails', () => {
     document.body.innerHTML =
     '<div>' +
     '  <span id="loading" />' +
@@ -88,13 +87,11 @@ describe('<UpdateEntry/>', () => {
       error: ''
     };
     const action = {
-      type: 'UPDATE_ENTRY_FAILING',
+      type: 'NEW_ENTRY_FAILING',
       payload
     };
     const newState = EntryReducer({}, action);
-    expect(newState).toEqual({
-      message: payload.error
-    });
+    expect(newState).toEqual({});
   });
   it('should click submit button', () => {
     document.body.innerHTML =

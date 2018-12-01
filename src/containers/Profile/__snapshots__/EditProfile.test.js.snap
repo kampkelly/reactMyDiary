@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EditProfile/> should render without throwing an error 1`] = `
+<Connect(EditProfile)
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  updateProfile={[MockFunction]}
+/>
+`;
