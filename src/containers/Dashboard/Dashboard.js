@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import './Dashboard.scss';
 import { AllEntries, PaginatedEntries } from '../../requests/EntryRequests';
+import { checkNotice } from '../../helpers/checkNotice';
 
 /**
  * @class Dashboard
@@ -23,6 +24,7 @@ class Dashboard extends Component {
     this.insertEntriesList = this.insertEntriesList.bind(this);
   }
   componentDidMount() {
+    checkNotice();
     document.querySelector('main').style.background = "linear-gradient(#eef5fe, transparent, #cde3fc)";
     this.props.PaginatedEntries(4);
     this.startSlider();

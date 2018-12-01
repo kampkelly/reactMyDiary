@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createBrowserHistory } from 'history';
 
 import { asyncActions } from '../util/AsyncUtil';
-import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES, DELETE_ENTRY } from '../actionTypes/EntryConstants';
 import { entryConstant } from '../constants/Constants';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -80,5 +80,17 @@ export const PaginatedEntries = limit => (dispatch) => {
       dispatch(asyncActions(PAGINATED_ENTRIES).loading(true));
     })
     .catch(error => dispatch(asyncActions(PAGINATED_ENTRIES)
+      .failure(true, error.response.data.message)));
+};
+
+export const DeleteEntry = id => (dispatch) => {
+  axios.delete(`${entryConstant.ENTRIES_URL}/${id}`)
+    .then((response) => {
+      dispatch(asyncActions(DELETE_ENTRY).loading(false));
+      dispatch(asyncActions(DELETE_ENTRY).success(true));
+      dispatch(asyncActions(DELETE_ENTRY).loading(true));
+      history.push('/dashboard?notice=Entry has been deleted');
+    })
+    .catch(error => dispatch(asyncActions(DELETE_ENTRY)
       .failure(true, error.response.data.message)));
 };

@@ -1,4 +1,4 @@
-import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../actionTypes/EntryConstants';
+import { NEW_ENTRY, SHOW_ENTRY, UPDATE_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES, DELETE_ENTRY } from '../actionTypes/EntryConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
@@ -89,6 +89,20 @@ const EntryReducer = (state = initialState, action = {}) => {
     case asyncActionName(PAGINATED_ENTRIES).failure:
       return {
         ...state,
+      };
+      case asyncActionName(DELETE_ENTRY).loading:
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case asyncActionName(DELETE_ENTRY).success:
+      return {
+        ...state,
+        entry: {}, success: true
+      };
+    case asyncActionName(DELETE_ENTRY).failure:
+      return {
+        ...state, message: action.payload.error
       };
     default:
       return state;
