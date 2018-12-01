@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ViewProfile/> should render without throwing an error 1`] = `
+<Connect(ViewProfile)
+  changeSettings={[MockFunction]}
+  checkNotice={[MockFunction]}
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  saveSettings={[MockFunction]}
+  showProfile={[MockFunction]}
+/>
+`;

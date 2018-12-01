@@ -66,6 +66,7 @@ class Signup extends Component {
       const password = this.state.password.toLowerCase();
       const confirmPassword = this.state.confirmPassword.toLowerCase();
       this.props.SignupUser(email, password, confirmPassword, this.state.dateOfBirth, this.state.fullName);
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
     }
   }
 

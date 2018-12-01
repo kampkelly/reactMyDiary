@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewEntry/> should render without throwing an error 1`] = `
+<Connect(NewEntry)
+  addEntry={[MockFunction]}
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  match={
+    Object {
+      "params": Object {
+        "id": 1,
+      },
+    }
+  }
+/>
+`;

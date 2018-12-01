@@ -25,7 +25,6 @@ class Dashboard extends Component {
   componentDidMount() {
     this.props.PaginatedEntries(4);
     this.startSlider();
-    console.log('component did mount');
   }
 
    /**
@@ -58,7 +57,6 @@ class Dashboard extends Component {
    * @memberof Dashboard
    */
   showRecentEntries() {
-    console.log(this.state);
     if (this.state.recentEntries.length) {
       return this.state.recentEntries.map(entry => (<li key={entry.id}><Link to={`entries/${entry.id}`}><h4 className="title">{entry.title.slice(0, 50)}</h4></Link></li>));
     } else {
@@ -159,8 +157,6 @@ class Dashboard extends Component {
    * @memberof Dashboard
    */
   insertEntriesList(offset, limit) {
-    console.log(offset);
-    console.log(limit);
     let allEntries = window.en;
     // allEntries = this.state.entries.slice(offset, offset + limit);
     allEntries = this.state.entries;

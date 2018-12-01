@@ -53,7 +53,7 @@ export class ViewEntry extends Component {
   viewEntry(e) {
     if (this.state.success) {
       const date = this.state.entry.createdat.split('T')[0];
-      return (<article>\<h3 className="title text-center white-text">{this.state.entry.title}</h3><span className="small-text light-text primary-text"><b>{date}</b></span><div><small><Link key={this.state.entry.id} to={`/entries/${this.state.entry.id}/update`}>Update</Link> <a href="delete" className="danger-text delete-entry">Delete</a></small></div><p className="description white-text">{this.state.entry.description}</p></article>);
+      return (<article><h3 className="title text-center white-text">{this.state.entry.title}</h3><span className="small-text light-text primary-text"><b>{date}</b></span><div><small><Link key={this.state.entry.id} to={`/entries/${this.state.entry.id}/update`}>Update</Link> <a href="delete" className="danger-text delete-entry">Delete</a></small></div><p className="description white-text">{this.state.entry.description}</p></article>);
     } else {
       return (<h3 className="text-center white-text">{this.state.message}</h3>);
     }

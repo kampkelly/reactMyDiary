@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard/> should render without throwing an error 1`] = `
+<Connect(Dashboard)
+  ShowEntry={[MockFunction]}
+  match={
+    Object {
+      "params": Object {
+        "id": 1,
+      },
+    }
+  }
+/>
+`;

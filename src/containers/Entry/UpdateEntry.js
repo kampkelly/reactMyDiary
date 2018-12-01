@@ -15,7 +15,7 @@ import { validateForm } from '../../helpers/validateForm';
 class UpdateEntry extends Component {
   /**
    *Creates an instance of UpdateEntry.
-   * @memberof NewEntry
+   * @memberof UpdateEntry
    */
   constructor() {
     super();

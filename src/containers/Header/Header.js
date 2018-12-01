@@ -48,7 +48,7 @@ class Header extends Component {
     } else {
       this.setState({ showOnloggedIn: 'hide-all' });
       this.setState({ showOnloggedOut: '' });
-      // window.location = 'signin.html?notice=You are not logged in!&warning=red';
+
     }
   }
 
@@ -70,7 +70,7 @@ class Header extends Component {
                         <ul className="no-styling flex">
                             <li className={`list-inline ${this.state.showOnloggedIn}`}><Link to="/dashboard">Dashboard</Link></li>
                             <li className={`list-inline ${this.state.showOnloggedOut}`}><Link to ="/signup">Signup</Link></li>
-                            <li className={`list-inline active ${this.state.showOnloggedOut}`}><Link to="/signin">Signin</Link></li>
+                            <li className={`list-inline ${this.state.showOnloggedOut}`}><Link to="/signin">Signin</Link></li>
                             <li className={`list-inline ${this.state.showOnloggedIn}`}><Link to="/profile">My Profile</Link> </li>
                             <li className="list-inline"><Link to="/about">About</Link></li>
                             <li className={`list-inline ${this.state.showOnloggedIn}`}><a href="#logout" onClick={this.signOut}>Logout</a></li>
@@ -91,7 +91,7 @@ class Header extends Component {
                                 <li className={`list-inline ${this.state.showOnloggedOut}`}><Link to="/signin">Signin</Link></li>
                                 <li className={`list-inline ${this.state.showOnloggedIn}`}><Link to="/profile">My Profile</Link> </li>
                                 <li className="list-inline"><Link to="/about">About</Link></li>
-                                <li className={`list-inline ${this.state.showOnloggedIn}`}><a href="#logout" onClick={this.signOut}>Logout</a></li>
+                                <li className={`mobile-logout list-inline ${this.state.showOnloggedIn}`}><a href="#logout" onClick={this.signOut}>Logout</a></li>
                             </ul>
                         </div>
                     </nav>

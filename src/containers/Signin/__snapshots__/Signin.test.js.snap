@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signin/> should render without throwing an error 1`] = `
+<Connect(Signin)
+  history={
+    Object {
+      "push": [MockFunction],
+    }
+  }
+  submitSignin={[MockFunction]}
+/>
+`;

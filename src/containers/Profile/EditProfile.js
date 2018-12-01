@@ -34,7 +34,6 @@ class EditProfile extends Component {
 
   change(e) {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
   }
 
   componentDidMount() {
@@ -97,7 +96,7 @@ class EditProfile extends Component {
                   <label className="">Full Name:</label>
                 </div>
                 <div className="col-4-6 col-6-6-md col-6-6-xs">
-                  <input type="text" required="true" className="control-form" id="signup_fullname" autoComplete="name" name="fullName" onChange={this.change} defaultValue={fullName} />
+                  <input type="text" required="true" className="control-form" id="fullName" autoComplete="name" name="fullName" onChange={this.change} defaultValue={fullName} />
                 </div>
               </div>
               <div className="field grid-container">
@@ -105,7 +104,7 @@ class EditProfile extends Component {
                   <label className="">Email Address:</label>
                 </div>
                 <div className="col-4-6 col-6-6-md col-6-6-xs">
-                  <input type="email" required="true" className="control-form" id="signup_email" autoComplete="email" name="email" onChange={this.change} defaultValue={email} />
+                  <input type="email" required="true" className="control-form" id="email" autoComplete="email" name="email" onChange={this.change} defaultValue={email} />
                 </div>
               </div>
               <div className="field grid-container">
@@ -113,7 +112,7 @@ class EditProfile extends Component {
                   <label className="">Date of Birth:</label>
                 </div>
                 <div className="col-4-6 col-6-6-md col-6-6-xs">
-                  <input type="date" className="control-form" id="signup_username" autoComplete="date" name="dateOfBirth" onChange={this.change} defaultValue={dateOfBirth} pattern="[a-z|A-Z|\d]{1,15}" />
+                  <input type="date" className="control-form" id="dateOfBirth" autoComplete="date" name="dateOfBirth" onChange={this.change} defaultValue={dateOfBirth} pattern="[a-z|A-Z|\d]{1,15}" />
                 </div>
               </div>
               <div className="field grid-container">

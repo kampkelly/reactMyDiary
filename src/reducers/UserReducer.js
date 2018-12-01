@@ -71,7 +71,7 @@ const UserReducer = (state = initialState, action = {}) => {
       };
     case asyncActionName(UPDATE_PROFILE).failure:
       document.querySelector('.form_error_text').style.display = 'block';
-			document.querySelector('.form_error_text small').textContent = data.message;
+			document.querySelector('.form_error_text small').textContent = action.payload.message;
       return {
         ...state,
       };

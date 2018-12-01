@@ -11,6 +11,7 @@ import ViewEntry from './containers/Entry/ViewEntry';
 import UpdateEntry from './containers/Entry/UpdateEntry';
 import ViewProfile from './containers/Profile/ViewProfile';
 import EditProfile from './containers/Profile/EditProfile';
+import { About } from './components/About/About';
 
 
 
@@ -56,6 +57,7 @@ class App extends Component {
               <PrivateRoute exact path="/entries/:id/update" component={UpdateEntry} />
               <PrivateRoute exact path="/profile" component={ViewProfile} />
               <PrivateRoute exact path="/profile/edit" component={EditProfile} />
+              <Route exact path="/about" component={About} />
               <Redirect to="/dashboard" />
             </Switch>
           </div>

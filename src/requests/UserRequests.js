@@ -62,8 +62,6 @@ export const UpdateProfile = (email, fullName, dateOfBirth) => (dispatch) => {
         dispatch(asyncActions(UPDATE_PROFILE).success(response.data));
         document.getElementById('loading').style.display = 'none';
         document.querySelector('.form_error_text').style.display = 'none';
-        console.log('response.data.message');
-        console.log(response.data.message);
         history.push(`/user/profile?notice=${response.data.message}`);
       }
     })
