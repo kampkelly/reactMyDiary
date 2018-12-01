@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './ViewEntry.scss';
 import '../../styles/sidebar.scss';
 import { ShowEntry } from '../../requests/EntryRequests';
+import { checkNotice } from '../../helpers/checkNotice';
 
 /**
  * @class ViewEntry
@@ -26,6 +27,8 @@ export class ViewEntry extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
+    checkNotice();
     this.props.ShowEntry(this.props.match.params.id);
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
@@ -51,7 +54,7 @@ export class ViewEntry extends Component {
    * @memberof NewEntry
    */
   viewEntry(e) {
-    if (this.state.success) {
+    if (this.state.success && this.state.entry.createdat) {
       const date = this.state.entry.createdat.split('T')[0];
       return (<article><h3 className="title text-center white-text">{this.state.entry.title}</h3><span className="small-text light-text primary-text"><b>{date}</b></span><div><small><Link key={this.state.entry.id} to={`/entries/${this.state.entry.id}/update`}>Update</Link> <a href="delete" className="danger-text delete-entry">Delete</a></small></div><p className="description white-text">{this.state.entry.description}</p></article>);
     } else {

@@ -8,6 +8,7 @@ import '../../styles/sidebar.scss';
 import { SaveNotification, ShowProfile } from '../../requests/UserRequests';
 import { AllEntries } from '../../requests/EntryRequests';
 import { validateForm } from '../../helpers/validateForm';
+import { checkNotice } from '../../helpers/checkNotice';
 
 /**
  * @class ViewEntry
@@ -22,6 +23,7 @@ class ViewProfile extends Component {
     super();
     this.state = {
       diaryEntries: 0,
+      editMode: false,
       entry: {},
       mmessage: '',
       reminderTime: '__:__',
@@ -37,25 +39,11 @@ class ViewProfile extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  checkNotice() {
-    const pageUrl = window.location.href;
-    const url = new URL(pageUrl);
-    const notice = url.searchParams.get('notice');
-    if (notice) {
-      if (notice.length >= 1) {
-        document.querySelector('#flash-message').style.display = 'block';
-        document.querySelector('#flash-message p').textContent = notice;
-        if (url.searchParams.get('warning')) {
-          document.querySelector('#flash-message').style.backgroundColor = '#e00a1e';
-        }
-      }
-    }
-  }
-
   componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
     this.props.ShowProfile();
     this.props.AllEntries();
-    this.checkNotice();
+    checkNotice();
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
 
@@ -73,12 +61,6 @@ class ViewProfile extends Component {
     document.querySelectorAll('#profile #settings form button')[0].style.backgroundColor = '#052F60';
     document.querySelectorAll('#profile #settings form button')[0].style.color = 'white';
     document.querySelectorAll('#profile #settings form button')[0].innerHTML = 'Save';
-    // document.querySelectorAll('#profile #settings form button')[0].addEventListener('mouseover', function () {
-    //   document.querySelectorAll('#profile #settings form button')[0].style.backgroundColor = '#8c8c8c';
-    // });
-    // document.querySelectorAll('#profile #settings form button')[0].addEventListener('mouseleave', function () {
-    //   document.querySelectorAll('#profile #settings form button')[0].style.backgroundColor = '#052F60';
-    // });
   }
 
   /**
@@ -89,6 +71,22 @@ class ViewProfile extends Component {
    * @memberof ViewProfile
    */
   static getDerivedStateFromProps(props, state) {
+    if (state.editMode) {
+      return {
+        diaryEntries: props.entries.length,
+        user: props.user,
+        success: props.success
+      };
+    }
+    if (!state.editMode && props.user.remindertime) {
+      return {
+        diaryEntries: props.entries.length,
+        editMode: true,
+        user: props.user,
+        reminderTime: props.user.remindertime,
+        success: props.success
+      };
+    }
     return {
       diaryEntries: props.entries.length,
       user: props.user,
@@ -96,7 +94,6 @@ class ViewProfile extends Component {
       success: props.success
     };
   }
-
 
   saveSettings(e) {
     e.preventDefault();
@@ -125,7 +122,7 @@ class ViewProfile extends Component {
       return (<div><ul className="no-styling"><li ><strong>Email:</strong>{this.state.user.email}</li><li ><strong>Name:</strong>{this.state.user.fullname}</li><li ><strong>Date of birth:</strong>{dateofbirth}</li><li ><strong>Date Joined:</strong>{createdat}</li></ul>
       <div className=""><Link to="profile/edit" className="underline"><small>Edit Profile</small></Link><p className="light-white-text"><small>Total number of entries in diary: {this.state.diaryEntries}</small></p></div></div>);
     } else {
-      return (<p>user is not loaded</p>);
+      return (<p></p>);
     }
   }
 
@@ -144,7 +141,7 @@ class ViewProfile extends Component {
 		              <h4 className="underline title text-center">Details</h4>
                   {this.showProfile()}
 									<div id="insert"></div>
-									<p className="danger-text notification_text"><small>Reminder has been set to: <span id="notification_time">{this.state.reminderTime}__:__</span> every day.</small></p>
+									<p className="danger-text notification_text"><small>Reminder has been set to: <span id="notification_time">{this.state.user.remindertime}</span> every day.</small></p>
 		            </section>
 							</div>
 							<div className="col-3-6 col-6-6-xs col-6-6-md mt-4-md mt-4-xs">

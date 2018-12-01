@@ -33,6 +33,10 @@ class Signup extends Component {
     this.goToHome = this.goToHome.bind(this);
   }
 
+  componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/Xxvt7y4.jpg')";
+  }
+
   /**
    * @description - This method runs whenever redux state changes
    * @returns {object} state

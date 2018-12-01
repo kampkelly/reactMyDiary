@@ -42,13 +42,13 @@ describe('<ViewEntry/>', () => {
         <ViewEntry {...props} />
       </Provider>
     );
-    myComponent = component.dive({ context: { store } }).dive();
     document.body.innerHTML =
-    '<body>' +
+    '<body><main></main>' +
     '  <span id="loading" />' +
     '  <span class="form_error_text" /><small></small><span>' +
     '  <button id="button" />' +
     '</body>';
+    myComponent = component.dive({ context: { store } }).dive();
   });
   it('should render without throwing an error', () => {
     expect(component).toMatchSnapshot();

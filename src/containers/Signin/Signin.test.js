@@ -37,6 +37,8 @@ describe('<Signin/>', () => {
         <Signin {...props} />
       </Provider>
     );
+    document.body.innerHTML =
+    '<main></main>';
     myComponent = component.dive({ context: { store } }).dive();
   });
   it('should render without throwing an error', () => {

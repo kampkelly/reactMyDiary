@@ -39,6 +39,8 @@ describe('<UpdateEntry/>', () => {
         <UpdateEntry {...props} />
       </Provider>
     );
+    document.body.innerHTML =
+    '<main></main>';
     myComponent = component.dive({ context: { store } }).dive();
   });
   it('should render without throwing an error', () => {
@@ -95,6 +97,12 @@ describe('<UpdateEntry/>', () => {
     });
   });
   it('should click submit button', () => {
+    document.body.innerHTML =
+    '<body>' +
+    '  <span id="loading" />' +
+    '  <span class="form_error_text" /><small></small><span>' +
+    '  <button id="button" />' +
+    '</body>';
     const input = myComponent.find('input#title');
     input.simulate('change', { target: { value: 'New name' } });
     myComponent.find('button.button-white').simulate('click', {

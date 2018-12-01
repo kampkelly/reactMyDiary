@@ -10,5 +10,3 @@ exports[`<EditProfile/> should render without throwing an error 1`] = `
   updateProfile={[MockFunction]}
 />
 `;
-
-exports[`<ViewProfile/> should render without throwing an error 1`] = `undefined`;

@@ -1,8 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import './About.scss';
 
-export const About = props => (
+export const About = () => (
   <div>
     <section id="about">
       <h2 class="text-center">About MyDiary</h2>

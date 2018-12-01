@@ -7,8 +7,6 @@ import Signup from './Signup';
 import UserReducer from '../../reducers/UserReducer';
 import { asyncActions } from '../../util/AsyncUtil';
 import { SIGNUP } from '../../actionTypes/UserConstants';
-import { SignupUser } from '../../requests/UserRequests';
-import { userConstant } from '../../constants/Constants';
 import setAuthToken from '../../util/AuthTokenUtil';
 
 const mockStore = configureMockStore([thunk]);
@@ -45,6 +43,8 @@ describe('<Signup/>', () => {
         <Signup {...props} />
       </Provider>
     );
+    document.body.innerHTML =
+    '<main></main>';
     myComponent = component.dive({ context: { store } }).dive();
   });
   it('should render without throwing an error', () => {
@@ -119,11 +119,7 @@ describe('<Signup/>', () => {
     myComponent.find('button.button-cancel').simulate('click');
   });
   it('calls the signup user function', () => {
-    // expect(myComponent.instance().props.SignupUser('email@example.com', 'password', 'password', '', 'fullName'));
     setAuthToken('fffnf');
     setAuthToken('');
-    console.log(myComponent.instance().props.SignupUser('email@example.com', 'password', 'password', '', 'fullName'));
-    // SignupUser('email@example.com', 'password', 'password', '', 'fullName');
-    // expect(clearSomethingInModal.mock.calls.length).toBe(1);
   });
 });

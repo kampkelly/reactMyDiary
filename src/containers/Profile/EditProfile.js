@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import './EditProfile.scss';
 import '../../styles/sidebar.scss';
@@ -20,6 +19,7 @@ class EditProfile extends Component {
   constructor() {
     super();
     this.state = {
+      editMode: false,
       dateOfBirth: '',
       email: '',
       fullName: '',
@@ -37,6 +37,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
     this.props.ShowProfile();
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
   }
@@ -52,13 +53,22 @@ class EditProfile extends Component {
     if (props.user.email) {
       document.getElementById('loading').style.display = 'none';
     }
-    return {
-      dateOfBirth: props.user.dateofbirth,
-      email: props.user.email,
-      fullName: props.user.fullname,
-      user: props.user,
-      success: props.success
-    };
+    if (state.editMode) {
+      return {
+        user: props.user,
+        success: props.success
+      };
+    }
+    if (!state.edit && props.user.dateofbirth) {
+      return {
+        editMode: true,
+        dateOfBirth: props.user.dateofbirth,
+        email: props.user.email,
+        fullName: props.user.fullname,
+        user: props.user,
+        success: props.success
+      };
+    }
   }
 
   goToHome() {
@@ -72,9 +82,14 @@ class EditProfile extends Component {
    */
   updateProfile(e) {
     e.preventDefault();
+    const errorMessage = 'One or more of the required fields are empty!';
     const { dateOfBirth, email, fullName } = this.state;
-    this.props.UpdateProfile(email, fullName, dateOfBirth);
-    document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
+    const values = { email, fullName, dateOfBirth };
+    const noneEmpty = validateForm(errorMessage, values, e);
+    if (noneEmpty === true) {
+      document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
+      this.props.UpdateProfile(email, fullName, dateOfBirth);
+    }
   }
 
   /**

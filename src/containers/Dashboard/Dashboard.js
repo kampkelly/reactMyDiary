@@ -23,6 +23,7 @@ class Dashboard extends Component {
     this.insertEntriesList = this.insertEntriesList.bind(this);
   }
   componentDidMount() {
+    document.querySelector('main').style.background = "linear-gradient(#eef5fe, transparent, #cde3fc)";
     this.props.PaginatedEntries(4);
     this.startSlider();
   }
@@ -60,7 +61,6 @@ class Dashboard extends Component {
     if (this.state.recentEntries.length) {
       return this.state.recentEntries.map(entry => (<li key={entry.id}><Link to={`entries/${entry.id}`}><h4 className="title">{entry.title.slice(0, 50)}</h4></Link></li>));
     } else {
-      // document.querySelector('aside .no-styling h3').style.color = '#DFAC2C';
       return (<h3 className="text-center">No entries</h3>);
     }
   }
@@ -128,15 +128,14 @@ class Dashboard extends Component {
    */
   componentDidUpdate() {
     if (this.state.entries.length) {
+      document.querySelector('#index').style.display = 'block';
       const offset = 0;
       const limit = 7;
-      document.querySelector('#dashboard').style.display = 'none';
-      document.querySelector('#index').style.display = 'block';
       // this.paginate(this.state.entries.length, offset, limit, this.state.entries, true);
 			window.en = this.state.entries;
-			// eslint-disable-next-line
       this.insertEntriesList(offset, limit);
     } else if (!this.state.entries.length) {
+      document.querySelector('#index').style.display = 'block';
 			document.querySelector('#index .no-styling').innerHTML = '<h3 class="text-center danger-text">You do not have any entries yet..<a href="add.html">Create one now</a></h3>';
 		}
   }
@@ -148,6 +147,8 @@ class Dashboard extends Component {
    */
   viewEntries() {
     document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`);
+    document.querySelector('#dashboard').style.display = 'none';
+    document.querySelector('#index').style.display = 'none';
     this.props.AllEntries();
   }
 
@@ -163,11 +164,12 @@ class Dashboard extends Component {
     let html = '<li></li>';
     allEntries.map(function (entry) {
       const date = entry.createdat.split('T')[0];
-      html += `<li><h4 class="title"<a href="entries/${entry.id}">${entry.title}</a> <span class="small-text light-text">${date}</span></h4><p class="description">${entry.description.slice(0, 150)}<Link href="entries/${entry.id}">Read more...</Link></p></li>`;
+      html += `<li><h4 class="title"><a href="entries/${entry.id}">${entry.title}</a> <span class="small-text light-text">${date}</span></h4><p class="description">${entry.description.slice(0, 150)} <a href="entries/${entry.id}">Read more...</a></p></li>`;
       return entry;
     });
     document.querySelector('#index .no-styling').innerHTML = html;
   }
+
   /**
    *
    * @returns {jsx} - jsx

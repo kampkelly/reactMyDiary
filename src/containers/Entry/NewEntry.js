@@ -30,6 +30,10 @@ class NewEntry extends Component {
     this.goToHome = this.goToHome.bind(this);
   }
 
+  componentDidMount() {
+    document.querySelector('main').style.backgroundImage = "url('https://i.imgur.com/n4ttyU5.jpg')";
+  }
+
   /**
    *
    * @returns {jsx} - jsx
