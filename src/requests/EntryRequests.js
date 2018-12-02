@@ -8,11 +8,11 @@ import { entryConstant } from '../constants/Constants';
 const history = createBrowserHistory({ forceRefresh: true });
 
 export const AddEntry = (title, description) => (dispatch) => {
-  axios.post(`${entryConstant.ENTRIES_URL}`, { title, description })
+  dispatch(asyncActions(NEW_ENTRY).loading(false));
+  return axios.post(`${entryConstant.ENTRIES_URL}`, { title, description })
     .then((response) => {
-      dispatch(asyncActions(NEW_ENTRY).loading(false));
-      dispatch(asyncActions(NEW_ENTRY).success(true));
       if (response.data.status === 'Success') {
+        dispatch(asyncActions(NEW_ENTRY).success(true));
         document.getElementById('loading').style.display = 'none';
         history.push(`/entries/${response.data.entry.id}?notice=${response.data.message}`);
       } else {
@@ -22,15 +22,16 @@ export const AddEntry = (title, description) => (dispatch) => {
       }
       dispatch(asyncActions(NEW_ENTRY).loading(true));
     })
-    .catch(error => dispatch(asyncActions(NEW_ENTRY)
-      .failure(true, error.response.data.message)));
+    .catch(error => {
+      console.log(error);
+      dispatch(asyncActions(NEW_ENTRY).failure(true, error.response.data.message))
+    });
 };
 
 export const ShowEntry = id => (dispatch) => {
-  // document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="http://res.cloudinary.com/ddfepbdqg/image/upload/v1543597369/Rolling.svg" id="loading"></img>`)
-  axios.get(`${entryConstant.ENTRIES_URL}/${id}`)
+  dispatch(asyncActions(SHOW_ENTRY).loading(false));
+  return axios.get(`${entryConstant.ENTRIES_URL}/${id}`)
     .then((response) => {
-      dispatch(asyncActions(SHOW_ENTRY).loading(false));
       document.getElementById('loading').style.display = 'none';
       if (response.data.status === 'Success') {
         dispatch(asyncActions(SHOW_ENTRY).success(response.data.entry));
@@ -61,10 +62,10 @@ export const ModifyEntry = (id, title, description) => (dispatch) => {
 };
 
 export const AllEntries = () => (dispatch) => {
-  axios.get(`${entryConstant.ENTRIES_URL}`)
+  dispatch(asyncActions(ALL_ENTRIES).loading(false));
+  return axios.get(`${entryConstant.ENTRIES_URL}`)
     .then((response) => {
       document.getElementById('loading').style.display = 'none';
-      dispatch(asyncActions(ALL_ENTRIES).loading(false));
       dispatch(asyncActions(ALL_ENTRIES).success(response.data.entries));
       dispatch(asyncActions(ALL_ENTRIES).loading(true));
     })
