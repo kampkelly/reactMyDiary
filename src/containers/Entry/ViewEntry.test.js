@@ -8,8 +8,8 @@ import configureMockStore from 'redux-mock-store';
 import ViewEntry from './ViewEntry';
 import EntryReducer from '../../reducers/EntryReducer';
 import { asyncActions } from '../../util/AsyncUtil';
-import { SHOW_ENTRY, ALL_ENTRIES } from '../../actionTypes/EntryConstants';
-import { ShowEntry, AllEntries } from '../../requests/EntryRequests';
+import { SHOW_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../../actionTypes/EntryConstants';
+import { ShowEntry, AllEntries, PaginatedEntries } from '../../requests/EntryRequests';
 import { entryConstant } from '../../constants/Constants';
 
 const mock = new MockAdapter(axios);
@@ -173,6 +173,7 @@ describe('<ViewEntry/>', () => {
     const newState = EntryReducer({}, action);
     expect(newState).toEqual({});
   });
+
   it('Get entry is successful', () => {
     mock.onGet(entryConstant.ENTRIES_URL).reply(200, {
       entries,
@@ -197,6 +198,34 @@ describe('<ViewEntry/>', () => {
 
     const store = mockStore({ entries: [] });
     return store.dispatch(AllEntries()).then(() => {
+      expect(store.getActions()).toEqual(mockedActions);
+    });
+  });
+
+  it('Get paginated entries is successful', () => {
+    mock.onGet(`${entryConstant.ENTRIES_URL}?limit=4`).reply(200, {
+      entries,
+      message: '',
+      status: 'success',
+    });
+
+    const mockedActions = [
+      {
+        type: `${PAGINATED_ENTRIES}_LOADING`,
+        payload: false,
+      },
+      {
+        type: `${PAGINATED_ENTRIES}_SUCCESS`,
+        payload: [],
+      },
+      {
+        type: `${PAGINATED_ENTRIES}_LOADING`,
+        payload: true
+      }
+    ];
+
+    const store = mockStore({ entries: [] });
+    return store.dispatch(PaginatedEntries(4)).then(() => {
       expect(store.getActions()).toEqual(mockedActions);
     });
   });

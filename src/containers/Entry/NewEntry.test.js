@@ -9,7 +9,7 @@ import NewEntry from './NewEntry';
 import EntryReducer from '../../reducers/EntryReducer';
 import { asyncActions } from '../../util/AsyncUtil';
 import { NEW_ENTRY } from '../../actionTypes/EntryConstants';
-import { AddEntry } from '../../requests/EntryRequests'
+import { AddEntry } from '../../requests/EntryRequests';
 import { entryConstant } from '../../constants/Constants';
 
 const mock = new MockAdapter(axios);

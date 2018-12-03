@@ -22,10 +22,8 @@ export const AddEntry = (title, description) => (dispatch) => {
       }
       dispatch(asyncActions(NEW_ENTRY).loading(true));
     })
-    .catch(error => {
-      console.log(error);
-      dispatch(asyncActions(NEW_ENTRY).failure(true, error.response.data.message))
-    });
+    .catch(error => dispatch(asyncActions(NEW_ENTRY)
+      .failure(true, error.response.data.message)));
 };
 
 export const ShowEntry = id => (dispatch) => {
@@ -43,9 +41,9 @@ export const ShowEntry = id => (dispatch) => {
 };
 
 export const ModifyEntry = (id, title, description) => (dispatch) => {
-  axios.put(`${entryConstant.ENTRIES_URL}/${id}`, { title, description })
+  dispatch(asyncActions(UPDATE_ENTRY).loading(false));
+  return axios.put(`${entryConstant.ENTRIES_URL}/${id}`, { title, description })
     .then((response) => {
-      dispatch(asyncActions(UPDATE_ENTRY).loading(false));
       if (response.data.status === 'Success') {
         dispatch(asyncActions(UPDATE_ENTRY).success(response.data.entry));
         document.getElementById('loading').style.display = 'none';
@@ -74,9 +72,9 @@ export const AllEntries = () => (dispatch) => {
 };
 
 export const PaginatedEntries = limit => (dispatch) => {
-  axios.get(`${entryConstant.ENTRIES_URL}?limit=${limit}`)
+  dispatch(asyncActions(PAGINATED_ENTRIES).loading(false));
+  return axios.get(`${entryConstant.ENTRIES_URL}?limit=${limit}`)
     .then((response) => {
-      dispatch(asyncActions(PAGINATED_ENTRIES).loading(false));
       dispatch(asyncActions(PAGINATED_ENTRIES).success(response.data.entries));
       dispatch(asyncActions(PAGINATED_ENTRIES).loading(true));
     })
