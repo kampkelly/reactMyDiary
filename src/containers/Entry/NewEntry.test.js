@@ -3,11 +3,17 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import NewEntry from './NewEntry';
 import EntryReducer from '../../reducers/EntryReducer';
 import { asyncActions } from '../../util/AsyncUtil';
 import { NEW_ENTRY } from '../../actionTypes/EntryConstants';
+import { AddEntry } from '../../requests/EntryRequests';
+import { entryConstant } from '../../constants/Constants';
 
+const mock = new MockAdapter(axios);
+const entry = { title: 'the new title yeah', description: 'the description is now active in this file' };
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
   entry: {
@@ -109,5 +115,39 @@ describe('<NewEntry/>', () => {
   });
   it('should click cancel button', () => {
     myComponent.find('button.button-cancel').simulate('click');
+  });
+
+  it('Create an entry is successful', () => {
+    document.body.innerHTML =
+    '<div>' +
+    '  <span id="loading" />' +
+    '  <span class="form_error_text" /><small></small><span>' +
+    '  <button id="button" />' +
+    '</div>';
+    mock.onPost(entryConstant.ENTRIES_URL).reply(201, {
+      entry: { id: 1 },
+      status: 'Success',
+      success: true,
+    });
+
+    const mockedActions = [
+      {
+        type: `${NEW_ENTRY}_LOADING`,
+        payload: false,
+      },
+      {
+        type: `${NEW_ENTRY}_SUCCESS`,
+        payload: true,
+      },
+      {
+        type: `${NEW_ENTRY}_LOADING`,
+        payload: true
+      }
+    ];
+
+    const store = mockStore({ success: false });
+    return store.dispatch(AddEntry(entry.title, entry.description)).then(() => {
+      expect(store.getActions()).toEqual(mockedActions);
+    });
   });
 });

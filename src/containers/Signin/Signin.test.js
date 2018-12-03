@@ -7,6 +7,7 @@ import Signin from './Signin';
 import UserReducer from '../../reducers/UserReducer';
 import { asyncActions } from '../../util/AsyncUtil';
 import { SIGNIN } from '../../actionTypes/UserConstants';
+import { SigninUser } from '../../requests/UserRequests';
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({

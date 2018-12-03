@@ -2,14 +2,22 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import ViewEntry from './ViewEntry';
 import EntryReducer from '../../reducers/EntryReducer';
 import { asyncActions } from '../../util/AsyncUtil';
-import { SHOW_ENTRY } from '../../actionTypes/EntryConstants';
+import { SHOW_ENTRY, ALL_ENTRIES, PAGINATED_ENTRIES } from '../../actionTypes/EntryConstants';
+import { ShowEntry, AllEntries, PaginatedEntries } from '../../requests/EntryRequests';
+import { entryConstant } from '../../constants/Constants';
 
+const mock = new MockAdapter(axios);
+const BASE_URL = 'https://kampkelly-mydiary-api.herokuapp.com/api/v1';
+const entries = [];
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
+  entries: [],
   entry: {
     entry: {
       createdat: '',
@@ -36,6 +44,9 @@ let component;
 let myComponent;
 
 describe('<ViewEntry/>', () => {
+  afterEach(() => {
+    mock.reset();
+  });
   beforeEach(() => {
     component = shallow(
       <Provider store={store}>
@@ -161,5 +172,89 @@ describe('<ViewEntry/>', () => {
     };
     const newState = EntryReducer({}, action);
     expect(newState).toEqual({});
+  });
+
+  it('Get entry is successful', () => {
+    mock.onGet(entryConstant.ENTRIES_URL).reply(200, {
+      entries,
+      message: '',
+      status: 'success',
+    });
+
+    const mockedActions = [
+      {
+        type: `${ALL_ENTRIES}_LOADING`,
+        payload: false,
+      },
+      {
+        type: `${ALL_ENTRIES}_SUCCESS`,
+        payload: [],
+      },
+      {
+        type: `${ALL_ENTRIES}_LOADING`,
+        payload: true
+      }
+    ];
+
+    const store = mockStore({ entries: [] });
+    return store.dispatch(AllEntries()).then(() => {
+      expect(store.getActions()).toEqual(mockedActions);
+    });
+  });
+
+  it('Get paginated entries is successful', () => {
+    mock.onGet(`${entryConstant.ENTRIES_URL}?limit=4`).reply(200, {
+      entries,
+      message: '',
+      status: 'success',
+    });
+
+    const mockedActions = [
+      {
+        type: `${PAGINATED_ENTRIES}_LOADING`,
+        payload: false,
+      },
+      {
+        type: `${PAGINATED_ENTRIES}_SUCCESS`,
+        payload: [],
+      },
+      {
+        type: `${PAGINATED_ENTRIES}_LOADING`,
+        payload: true
+      }
+    ];
+
+    const store = mockStore({ entries: [] });
+    return store.dispatch(PaginatedEntries(4)).then(() => {
+      expect(store.getActions()).toEqual(mockedActions);
+    });
+  });
+
+  it('Get one entry is successful', () => {
+    mock.onGet(`${entryConstant.ENTRIES_URL}/1`).reply(200, {
+      entry: {},
+      message: '',
+      status: 'Success',
+    });
+
+    const mockedActions = [
+      {
+        type: `${SHOW_ENTRY}_LOADING`,
+        payload: false,
+      },
+      {
+        type: `${SHOW_ENTRY}_SUCCESS`,
+        payload: {},
+      },
+      {
+        type: `${SHOW_ENTRY}_LOADING`,
+        payload: true
+      }
+    ];
+
+    const store = mockStore({ entry: {} });
+    return store.dispatch(ShowEntry(1)).then(() => {
+      expect(store.getActions()).toEqual(mockedActions);
+    });
   });
 });
