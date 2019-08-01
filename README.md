@@ -1,2 +1,2 @@
 # reactMyDiary
-ReactJs front-end implementation of my Andela Bootcamp project
+ReactJs front-end implementation of my Diary project
