@@ -41,7 +41,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "axios-mock-adapter": "^1.15.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
